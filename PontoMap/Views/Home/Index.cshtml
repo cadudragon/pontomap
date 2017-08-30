@@ -1,5 +1,6 @@
 ﻿@model PontoMap.Models.Usuario
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +15,15 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $("#validationSummary").change(function(){
+                alert("The text has been changed.");
+            });
+        });
 
-   
+    </script>
 
     <title>Gentelella Alela! | </title>
 </head>
@@ -29,7 +37,7 @@
                 <section class="login_content">
                     @using (Html.BeginForm())
                     {
-                        @Html.ValidationSummary()
+                        @Html.ValidationSummary(false, "", new { @id = "validationSummary" })
                         <h1>Login</h1>
                         <div>
                             @Html.TextBoxFor(m => m.DsEmail, htmlAttributes: new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.DsEmail) })
