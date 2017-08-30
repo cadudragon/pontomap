@@ -11,8 +11,6 @@ namespace PontoMap.DAOs
     public class EmpresaDao : BaseDao, ICrud<Empresa>
     {
 
-        private static StringBuilder strSql = new StringBuilder();
-
         public bool Create(Empresa empresa)
         {
             strSql.Append("INSERT INTO [dbo].[Empresa]");

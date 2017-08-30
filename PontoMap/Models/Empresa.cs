@@ -8,6 +8,9 @@ namespace PontoMap.Models
 {
     public class Empresa : BaseModel
     {
+
+        [Range(1, Int32.MaxValue)]
+        [Required(ErrorMessage = "Informe a empresa")]
         public int IdEmpresa { get; set; }
 
         [Required(ErrorMessage = "CNPJ obrigatório")]
@@ -21,7 +24,6 @@ namespace PontoMap.Models
         [Required(ErrorMessage = "Nome Fantasia obrigatório")]
         [Display(Name = "Nome Fantasia")]
         public string NmFantasia { get; set; }
-
-        public bool CdAtivo { get; set; }
+        
     }
 }

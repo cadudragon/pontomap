@@ -6,14 +6,19 @@ using System.Web;
 
 namespace PontoMap.Models
 {
-    public class Funcionario : BaseModel
+    public class Usuario : BaseModel
     {
-
-        public int IdFuncionario { get; set; }
+        [Range(1, Int32.MaxValue)]
+        [Required(ErrorMessage = "Informe o Id do usuário")]
+        public int IdUsuario { get; set; }
 
         [Range(1, Int32.MaxValue)]
         [Required(ErrorMessage = "Informe a empresa do Funcionário")]
         public int IdEmpresa { get; set; }
+
+        [Range(1, Int32.MaxValue)]
+        [Required(ErrorMessage = "Informe a empresa do Funcionário")]
+        public int IdTipoUsuario { get; set; }
 
         [Required(ErrorMessage = "CPF obrigatório")]
         [Display(Name = "CPF")]
@@ -28,6 +33,10 @@ namespace PontoMap.Models
         [Display(Name = "Celular")]
         public string DsCelular { get; set; }
 
+        [Required(ErrorMessage = "Senha obrigatório")]
+        [Display(Name = "Celular")]
+        public string CdPassword { get; set; }
+
 
         [Required(ErrorMessage = "Data de Nascimento obrigatória")]
         [Display(Name = "Data de Nascimento")]
@@ -35,9 +44,6 @@ namespace PontoMap.Models
 
         [Required(ErrorMessage = "Nome do Funcionário obrigatório")]
         [Display(Name = "Nome Funcionário")]
-        public string NmFuncionario { get; set; }
-
-        public bool CdAtivo { get; set; }
-
+        public string NmUsuario { get; set; }
     }
 }

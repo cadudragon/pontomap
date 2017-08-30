@@ -20,12 +20,20 @@ namespace PontoMap
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/vendors/bootstrap.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/template_gentelella").Include(
+                    "~/Content/bootstrap.css",
+                    "~/Content/template_gentelella/vendors/font-awesome/css/font-awesome.min.css",
+                    "~/Content/template_gentelella/vendors/nprogress/nprogress.css",
+                    "~/Content/template_gentelella/vendors/animate.css/animate.min.css",
+                    "~/Content/template_gentelella/build/css/custom.css"
+                    ));
         }
     }
 }
