@@ -10,6 +10,7 @@ namespace PontoMap.DAOs
 {
     public class EmpresaDao : BaseDao, ICrud<Empresa>
     {
+        private StringBuilder strSql = new StringBuilder();
 
         public bool Create(Empresa empresa)
         {

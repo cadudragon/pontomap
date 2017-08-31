@@ -12,7 +12,6 @@ namespace PontoMap.DAOs
 {
     public class BaseDao
     {
-        protected static StringBuilder strSql = new StringBuilder();
 
         //https://stackoverflow.com/questions/9218847/how-do-i-handle-database-connections-with-dapper-in-net
 

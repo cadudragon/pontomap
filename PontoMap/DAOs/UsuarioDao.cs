@@ -5,12 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace PontoMap.DAOs
 {
     public class UsuarioDao : BaseDao, ICrud<Usuario>
     {
+        private StringBuilder strSql = new StringBuilder();
+
         public bool Create(Usuario usuario)
         {
             strSql.Append("INSERT INTO [dbo].[Usuario]");
@@ -59,10 +62,10 @@ namespace PontoMap.DAOs
             strSql.Append("		,[NmUsuario]");
             strSql.Append("		,[CdAtivo]");
             strSql.Append("	FROM [dbo].[Usuario]");
-            strSql.Append("  WHERE DsEmail = @NmUsuario AND CdPassword = @CdPassword");
+            strSql.Append("  WHERE DsEmail = @DsEmail AND CdPassword = @CdPassword");
 
             DynamicParameters parametros = new DynamicParameters();
-            parametros.Add("@NmUsuario", usuario.DsEmail, DbType.String, ParameterDirection.Input);
+            parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
 
             return QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);

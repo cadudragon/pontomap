@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PontoMap.Controllers
 {
@@ -12,17 +13,38 @@ namespace PontoMap.Controllers
     {
         public ActionResult Index()
         {
+            
             return View();
         }
 
-        public ActionResult Login(Usuario usuario)
+
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Usuario usuario, string returnUrl)
         {
-            Usuario testeUser = new Usuario();
+            Usuario testeUser;
             testeUser = new UsuarioDao().Get(usuario);
-            return View();
+
+            if (testeUser == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+
+            FormsAuthentication.SetAuthCookie(testeUser.NmUsuario, false);
+            Session["Nome"] = testeUser.NmUsuario;
+            return RedirectToAction("About", "Home");
+        }
+
+        [Authorize]
+        public ActionResult LogOut()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
 
+        [Authorize (Roles = "master")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using PontoMap.Interfaces;
 using PontoMap.Models;
@@ -9,6 +10,8 @@ namespace PontoMap.DAOs
 {
     public class TipoUsuarioDao : BaseDao, ICrud<TipoUsuario>
     {
+        private StringBuilder strSql = new StringBuilder();
+
         public bool Create(TipoUsuario tipoUsuario)
         {
             throw new NotImplementedException();

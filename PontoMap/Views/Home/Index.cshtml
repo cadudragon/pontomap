@@ -43,8 +43,9 @@
             <div class="animate form login_form">
                 <section class="login_content">
                   
-                    @using (Html.BeginForm("Login", "Home", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                     {
+                        @Html.AntiForgeryToken();
                         @Html.ValidationSummary(false, "", new { @id = "ValidationSummaryModal" })
                         <br /><br />
                             <h1>Login</h1>

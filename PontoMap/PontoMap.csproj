@@ -160,6 +160,7 @@
     <Compile Include="Iterfaces\ICrud.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\TipoUsuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Ponto.cs" />
