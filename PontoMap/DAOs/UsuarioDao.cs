@@ -56,7 +56,7 @@ namespace PontoMap.DAOs
             strSql.Append("		,[DsCelular]");
             strSql.Append("		,[CdPassword]");
             strSql.Append("		,[DtNascimento]");
-            strSql.Append("		,[NmFuncionario]");
+            strSql.Append("		,[NmUsuario]");
             strSql.Append("		,[CdAtivo]");
             strSql.Append("	FROM [dbo].[Usuario]");
             strSql.Append("  WHERE DsEmail = @NmUsuario AND CdPassword = @CdPassword");

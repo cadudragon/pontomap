@@ -13,11 +13,11 @@ namespace PontoMap.Models
         public int IdUsuario { get; set; }
 
         [Range(1, Int32.MaxValue)]
-        [Required(ErrorMessage = "Informe a empresa do Funcionário")]
+        [Required(ErrorMessage = "Informe a empresa do Usuário")]
         public int IdEmpresa { get; set; }
 
         [Range(1, Int32.MaxValue)]
-        [Required(ErrorMessage = "Informe a empresa do Funcionário")]
+        [Required(ErrorMessage = "Informe a empresa do Usuário")]
         public int IdTipoUsuario { get; set; }
 
         [Required(ErrorMessage = "CPF obrigatório")]
@@ -42,8 +42,8 @@ namespace PontoMap.Models
         [Display(Name = "Data de Nascimento")]
         public DateTime DtNascimento { get; set; }
 
-        [Required(ErrorMessage = "Nome do Funcionário obrigatório")]
-        [Display(Name = "Nome Funcionário")]
+        [Required(ErrorMessage = "Nome do Usuário obrigatório")]
+        [Display(Name = "Nome Usuário")]
         public string NmUsuario { get; set; }
     }
 }

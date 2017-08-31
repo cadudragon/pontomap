@@ -22,7 +22,7 @@ CREATE TABLE Usuario(
 	DsCelular VARCHAR(11) NOT NULL UNIQUE,
 	CdPassword VARCHAR(11) NOT NULL,
 	DtNascimento DATE NOT NULL,
-	NmFuncionario VARCHAR(50),
+	NmUsuario VARCHAR(50),
 	CdAtivo BIT NOT NULL DEFAULT 1
 )
 go
@@ -61,7 +61,7 @@ ALTER TABLE Usuario
 go
 
 ALTER TABLE Ponto
-	ADD PRIMARY KEY(IdFuncionario,IdEmpresa,DtRegistro)
+	ADD PRIMARY KEY(IdNmUsuario,IdEmpresa,DtRegistro)
 go
 
 ALTER TABLE Contato
@@ -69,12 +69,12 @@ ALTER TABLE Contato
 go
 
 --CHAVES ESTRANGEIRAS
-ALTER TABLE Funcionario
+ALTER TABLE Usuario
 	ADD FOREIGN KEY(IdEmpresa)
 		REFERENCES Empresa
 go
 
 ALTER TABLE Ponto
-	ADD FOREIGN KEY(IdFuncionario,IdEmpresa)
-		REFERENCES Funcionario
+	ADD FOREIGN KEY(IdUsuario,IdEmpresa)
+		REFERENCES Usuario
 go
