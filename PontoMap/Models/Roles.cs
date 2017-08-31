@@ -43,18 +43,17 @@ namespace PontoMap.Models
 
         public override string[] GetAllRoles()
         {
-            List<TipoUsuario> tipoUsuarioList = new TipoUsuarioDao().Read(new TipoUsuario());
+            Usuario user = new UsuarioDao().Get(new Usuario());
 
-            string[] retorno = tipoUsuarioList.AsEnumerable().Select(item => item.DsTipoUsuario).ToArray();
+            string[] retorno = new string[] { user.DsPerfilUsuario };
             return retorno;
-
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            List<TipoUsuario> tipoUsuarioList = new TipoUsuarioDao().Read(new TipoUsuario());
+            Usuario user = new UsuarioDao().GetPerfil(new Usuario { DsEmail = username });
 
-            string[] retorno = tipoUsuarioList.AsEnumerable().Select(item => item.DsTipoUsuario).ToArray();
+            string[] retorno = new string[] { user.DsPerfilUsuario };
             return retorno;
         }
         public override string[] GetUsersInRole(string roleName)

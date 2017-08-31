@@ -1,29 +1,28 @@
-﻿CREATE TABLE Empresa(
+-- scripts banco
+
+CREATE TABLE Empresa(
 	IdEmpresa INT NOT NULL IDENTITY (1,1),
 	DsCnpj VARCHAR(50) NOT NULL UNIQUE,
 	DsRazaoSocial VARCHAR(50),
-	NmFantasia VARCHAR(50)  NOT NULL,
-	CdIsMaster BIT NOT NULL DEFAULT 0
+	NmFantasia VARCHAR(50)  NOT NULL
 )
 go
 
-CREATE TABLE TipoUsuario(
-	IdTipoUsuario INT NOT NULL  IDENTITY (1,1),
-	DsTipoUsuario VARCHAR(30) NOT NULL
+CREATE TABLE PerfilUsuario(
+	DsPerfilUsuario VARCHAR(50) NOT NULL UNIQUE
 )
 go
 
 CREATE TABLE Usuario(
-	Idusuario INT NOT NULL  IDENTITY (1,1),
+	Idusuario INT NOT NULL IDENTITY (1,1),
 	IdEmpresa INT NOT NULL,
-	IdTipoUsuario INT NOT NULL,
+	DsPerfilUsuario VARCHAR(50) NOT NULL,
 	CdCpf VARCHAR(20) NOT NULL UNIQUE,
 	DsEmail VARCHAR(50) NOT NULL UNIQUE,
 	DsCelular VARCHAR(11) NOT NULL UNIQUE,
 	CdPassword VARCHAR(11) NOT NULL,
 	DtNascimento DATE NOT NULL,
-	NmUsuario VARCHAR(50),
-	CdAtivo BIT NOT NULL DEFAULT 1
+	NmUsuario VARCHAR(50)
 )
 go
 
@@ -34,38 +33,25 @@ CREATE TABLE Ponto(
 	DtRegistro DATETIME NOT NULL,
 	CdLat DECIMAL(10,6) NOT NULL,
 	CdLng DECIMAL(10,6) NOT NULL,
+	UNIQUE (Idusuario, IdEmpresa, DtRegistro)
 )
 go
-
-CREATE TABLE Contato(
-	IdContato INT NOT NULL IDENTITY (1,1),
-	NmNome 	VARCHAR(50) NOT NULL,
-	DsEmail VARCHAR(50) NOT NULL,
-	DsAssunto VARCHAR(50) NOT NULL,
-	DsMensagem VARCHAR(250) NOT NULL,
-)
-go
-
 --CHAVES PRIMARIAS
 
 ALTER TABLE Empresa
 	ADD PRIMARY KEY(IdEmpresa)
 go
 
-ALTER TABLE TipoUsuario
-	ADD PRIMARY KEY(IdTipoUsuario,DsTipoUsuario)
+ALTER TABLE PerfilUsuario
+	ADD PRIMARY KEY(DsPerfilUsuario)
 go
 
 ALTER TABLE Usuario
-	ADD PRIMARY KEY(Idusuario)
+	ADD PRIMARY KEY(IdUsuario, IdEmpresa)
 go
 
 ALTER TABLE Ponto
-	ADD PRIMARY KEY(IdNmUsuario,IdEmpresa,DtRegistro)
-go
-
-ALTER TABLE Contato
-	ADD PRIMARY KEY(IdContato)
+	ADD PRIMARY KEY(Idusuario,IdEmpresa,DtRegistro)
 go
 
 --CHAVES ESTRANGEIRAS
@@ -74,7 +60,13 @@ ALTER TABLE Usuario
 		REFERENCES Empresa
 go
 
+
+ALTER TABLE Usuario
+	ADD FOREIGN KEY(DsPerfilUsuario)
+		REFERENCES PerfilUsuario
+go
+
 ALTER TABLE Ponto
-	ADD FOREIGN KEY(IdUsuario,IdEmpresa)
+	ADD FOREIGN KEY(Idusuario,IdEmpresa)
 		REFERENCES Usuario
 go

@@ -152,7 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAOs\BaseDao.cs" />
     <Compile Include="DAOs\EmpresaDao.cs" />
-    <Compile Include="DAOs\TipoUsuarioDao.cs" />
+    <Compile Include="DAOs\PerfilUsuarioDao.cs" />
     <Compile Include="DAOs\UsuarioDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,7 +161,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Empresa.cs" />
     <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\TipoUsuario.cs" />
+    <Compile Include="Models\PerfilUsuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Ponto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

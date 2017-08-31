@@ -16,9 +16,9 @@ namespace PontoMap.Models
         [Required(ErrorMessage = "Informe a empresa do Usuário")]
         public int IdEmpresa { get; set; }
 
-        [Range(1, Int32.MaxValue)]
-        [Required(ErrorMessage = "Informe a empresa do Usuário")]
-        public int IdTipoUsuario { get; set; }
+        
+        [Required(ErrorMessage = "Informe a Descrição do perfil do Usuário")]
+        public string DsPerfilUsuario { get; set; }
 
         [Required(ErrorMessage = "CPF obrigatório")]
         [Display(Name = "CPF")]

@@ -8,35 +8,34 @@ using PontoMap.Models;
 
 namespace PontoMap.DAOs
 {
-    public class TipoUsuarioDao : BaseDao, ICrud<TipoUsuario>
+    public class PerfilUsuarioDao : BaseDao, ICrud<PerfilUsuario>
     {
         private StringBuilder strSql = new StringBuilder();
 
-        public bool Create(TipoUsuario tipoUsuario)
+        public bool Create(PerfilUsuario tipoUsuario)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(TipoUsuario tipoUsuario)
+        public bool Delete(PerfilUsuario tipoUsuario)
         {
             throw new NotImplementedException();
         }
 
-        public TipoUsuario Get(TipoUsuario tipoUsuario)
+        public PerfilUsuario Get(PerfilUsuario tipoUsuario)
         {
             throw new NotImplementedException();
         }
 
-        public List<TipoUsuario> Read(TipoUsuario tipoUsuario)
+        public List<PerfilUsuario> Read(PerfilUsuario tipoUsuario)
         {
-            strSql.Append("SELECT [IdTipoUsuario]");
-            strSql.Append("		,[DsTipoUsuario]");
-            strSql.Append("	FROM [dbo].[TipoUsuario]");
+            strSql.Append("SELECT [DsPerfilUsuario]");
+            strSql.Append("	FROM [dbo].[PerfilUsuario]");
 
-            return Query<TipoUsuario>(strSql.ToString());
+            return Query<PerfilUsuario>(strSql.ToString());
         }
 
-        public bool Update(TipoUsuario obj)
+        public bool Update(PerfilUsuario obj)
         {
             throw new NotImplementedException();
         }

@@ -30,7 +30,7 @@ namespace PontoMap.Controllers
             }
 
 
-            FormsAuthentication.SetAuthCookie(testeUser.NmUsuario, false);
+            FormsAuthentication.SetAuthCookie(testeUser.DsEmail, false);
             Session["Nome"] = testeUser.NmUsuario;
             return RedirectToAction("About", "Home");
         }
