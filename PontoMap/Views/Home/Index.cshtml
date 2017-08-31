@@ -15,15 +15,21 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
-    
-    <script>
-        $(document).ready(function () {
-            $("#validationSummary").change(function(){
-                alert("The text has been changed.");
-            });
-        });
 
-    </script>
+    <style>
+        #ValidationSummaryModal {
+            color: red;
+        }
+
+            #ValidationSummaryModal > ul {
+                list-style-type: none;
+                position: absolute;
+                margin-left: auto;
+                margin-right: auto;
+                left: 0;
+                right: 0;
+            }
+    </style>
 
     <title>Gentelella Alela! | </title>
 </head>
@@ -33,40 +39,41 @@
         <a class="hiddenanchor" id="signin"></a>
 
         <div class="login_wrapper">
+            
             <div class="animate form login_form">
                 <section class="login_content">
-                    @using (Html.BeginForm())
+                  
+                    @using (Html.BeginForm("Login", "Home", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
                     {
-                        @Html.ValidationSummary(false, "", new { @id = "validationSummary" })
-                        <h1>Login</h1>
-                        <div>
-                            @Html.TextBoxFor(m => m.DsEmail, htmlAttributes: new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.DsEmail) })
-                        </div>
-                        <div>
-                            @Html.PasswordFor(m => m.CdPassword, htmlAttributes: new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.CdPassword) })
-                        </div>
-                        <div>
-                            <input type="submit" value="Submit" />
-                            <input type="reset" value="Reset" />
-                            <a class="btn btn-default submit" href="index.html">Submit</a>
-                        </div>
-
-                        <div class="clearfix"></div>
-
-                        <div class="separator">
-                            <p class="change_link">
-                                Already a member ?
-                                <a href="#signin" class="to_register"> Log in </a>
-                            </p>
+                        @Html.ValidationSummary(false, "", new { @id = "ValidationSummaryModal" })
+                        <br /><br />
+                            <h1>Login</h1>
+                            <div>
+                                @Html.TextBoxFor(m => m.DsEmail, htmlAttributes: new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.DsEmail) })
+                            </div>
+                            <div>
+                                @Html.PasswordFor(m => m.CdPassword, htmlAttributes: new { @class = "form-control", placeholder = Html.DisplayNameFor(m => m.CdPassword) })
+                            </div>
+                            <div>
+                                <input class="btn btn-default submit" type="submit" value="Entrar" />
+                            </div>
 
                             <div class="clearfix"></div>
-                            <br />
 
-                            <div>
-                                <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                                <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                            <div class="separator">
+                                <p class="change_link">
+                                    Already a member ?
+                                    <a href="#signin" class="to_register"> Log in </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                    <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                                </div>
                             </div>
-                        </div>
                     }
                 </section>
             </div>

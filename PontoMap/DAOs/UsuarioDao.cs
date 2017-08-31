@@ -48,7 +48,24 @@ namespace PontoMap.DAOs
 
         public Usuario Get(Usuario usuario)
         {
-            throw new NotImplementedException();
+            strSql.Append("SELECT [Idusuario]");
+            strSql.Append("		,[IdEmpresa]");
+            strSql.Append("		,[IdTipoUsuario]");
+            strSql.Append("		,[CdCpf]");
+            strSql.Append("		,[DsEmail]");
+            strSql.Append("		,[DsCelular]");
+            strSql.Append("		,[CdPassword]");
+            strSql.Append("		,[DtNascimento]");
+            strSql.Append("		,[NmFuncionario]");
+            strSql.Append("		,[CdAtivo]");
+            strSql.Append("	FROM [dbo].[Usuario]");
+            strSql.Append("  WHERE DsEmail = @NmUsuario AND CdPassword = @CdPassword");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@NmUsuario", usuario.DsEmail, DbType.String, ParameterDirection.Input);
+            parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
+
+            return QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
         }
 
         public List<Usuario> Read(Usuario usuario)

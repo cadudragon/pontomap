@@ -34,7 +34,7 @@ namespace PontoMap.Models
         public string DsCelular { get; set; }
 
         [Required(ErrorMessage = "Senha obrigatório")]
-        [Display(Name = "Celular")]
+        [Display(Name = "Senha")]
         public string CdPassword { get; set; }
 
 

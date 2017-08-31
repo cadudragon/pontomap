@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PontoMap.DAOs;
+using PontoMap.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,14 @@ namespace PontoMap.Controllers
         {
             return View();
         }
+
+        public ActionResult Login(Usuario usuario)
+        {
+            Usuario testeUser = new Usuario();
+            testeUser = new UsuarioDao().Get(usuario);
+            return View();
+        }
+
 
         public ActionResult About()
         {

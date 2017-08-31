@@ -1,7 +1,5 @@
-﻿-- scripts banco
-
-CREATE TABLE Empresa(
-	IdEmpresa INT NOT NULL,
+﻿CREATE TABLE Empresa(
+	IdEmpresa INT NOT NULL IDENTITY (1,1),
 	DsCnpj VARCHAR(50) NOT NULL UNIQUE,
 	DsRazaoSocial VARCHAR(50),
 	NmFantasia VARCHAR(50)  NOT NULL,
@@ -10,12 +8,13 @@ CREATE TABLE Empresa(
 go
 
 CREATE TABLE TipoUsuario(
-	IdTipoUsuario INT NOT NULL,
+	IdTipoUsuario INT NOT NULL  IDENTITY (1,1),
 	DsTipoUsuario VARCHAR(30) NOT NULL
-)go
+)
+go
 
 CREATE TABLE Usuario(
-	Idusuario INT NOT NULL,
+	Idusuario INT NOT NULL  IDENTITY (1,1),
 	IdEmpresa INT NOT NULL,
 	IdTipoUsuario INT NOT NULL,
 	CdCpf VARCHAR(20) NOT NULL UNIQUE,
@@ -25,7 +24,8 @@ CREATE TABLE Usuario(
 	DtNascimento DATE NOT NULL,
 	NmFuncionario VARCHAR(50),
 	CdAtivo BIT NOT NULL DEFAULT 1
-)go
+)
+go
 
 
 CREATE TABLE Ponto(
@@ -38,7 +38,7 @@ CREATE TABLE Ponto(
 go
 
 CREATE TABLE Contato(
-	IdContato INT NOT NULL,
+	IdContato INT NOT NULL IDENTITY (1,1),
 	NmNome 	VARCHAR(50) NOT NULL,
 	DsEmail VARCHAR(50) NOT NULL,
 	DsAssunto VARCHAR(50) NOT NULL,
