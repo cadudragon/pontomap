@@ -17,33 +17,6 @@ namespace PontoMap.Controllers
             return View();
         }
 
-
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(Usuario usuario, string returnUrl)
-        {
-            Usuario testeUser;
-            testeUser = new UsuarioDao().Get(usuario);
-
-            if (testeUser == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-
-            FormsAuthentication.SetAuthCookie(testeUser.DsEmail, false);
-            Session["Nome"] = testeUser.NmUsuario;
-            return RedirectToAction("About", "Home");
-        }
-
-        [Authorize]
-        public ActionResult LogOut()
-        {
-            Session.Clear();
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
-
         [Authorize (Roles = "master")]
         public ActionResult About()
         {
