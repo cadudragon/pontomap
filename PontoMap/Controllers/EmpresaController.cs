@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PontoMap.DAOs;
+using PontoMap.Models;
 
 namespace PontoMap.Controllers
 {
@@ -12,7 +14,9 @@ namespace PontoMap.Controllers
         [Authorize(Roles = "master")]
         public ActionResult Index()
         {
-            return View();
+            List<Empresa> empresaList = new EmpresaDao().Read(new Empresa());
+
+            return View(empresaList);
         }
 
         [Authorize(Roles = "master")]

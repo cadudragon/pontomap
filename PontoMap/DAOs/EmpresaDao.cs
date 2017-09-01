@@ -24,8 +24,7 @@ namespace PontoMap.DAOs
             strSql.Append("		(<IdEmpresa, int>");
             strSql.Append("		,<DsCnpj, varchar(50)>");
             strSql.Append("		,<DsRazaoSocial, varchar(50)>");
-            strSql.Append("		,<NmFantasia, varchar(50)>");
-            strSql.Append("		,<CdAtivo, bit>)");
+            strSql.Append("		,<NmFantasia, varchar(50)>)");
 
             int ret = Execute(strSql.ToString());
             return true;
@@ -42,7 +41,6 @@ namespace PontoMap.DAOs
             strSql.Append("		,[DsCnpj]");
             strSql.Append("		,[DsRazaoSocial]");
             strSql.Append("		,[NmFantasia]");
-            strSql.Append("		,[CdAtivo]");
             strSql.Append("	FROM [dbo].[Empresa]");
 
             return Query<Empresa>(strSql.ToString());
@@ -55,7 +53,6 @@ namespace PontoMap.DAOs
             strSql.Append("		,[DsCnpj] = <DsCnpj, varchar(50)>");
             strSql.Append("		,[DsRazaoSocial] = <DsRazaoSocial, varchar(50)>");
             strSql.Append("		,[NmFantasia] = <NmFantasia, varchar(50)>");
-            strSql.Append("		,[CdAtivo] = <CdAtivo, bit>");
             strSql.Append("	WHERE <Search Conditions>");
 
 
