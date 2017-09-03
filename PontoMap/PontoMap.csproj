@@ -154,7 +154,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAOs\BaseDao.cs" />
     <Compile Include="DAOs\EmpresaDao.cs" />
-    <Compile Include="DAOs\PerfilUsuarioDao.cs" />
+    <Compile Include="DAOs\PerfilDao.cs" />
     <Compile Include="DAOs\UsuarioDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,11 +162,13 @@
     <Compile Include="Iterfaces\ICrud.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Empresa.cs" />
+    <Compile Include="Models\RelacPerfilUsuario.cs" />
     <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\PerfilUsuario.cs" />
+    <Compile Include="Models\Perfil.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Ponto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\RegistrarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -405,6 +407,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Empresa\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

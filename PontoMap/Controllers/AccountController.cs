@@ -36,7 +36,7 @@ namespace PontoMap.Controllers
                 Session["Nome"] = testeUser.NmUsuario;
                 return RedirectToAction("About", "Home");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
@@ -48,6 +48,11 @@ namespace PontoMap.Controllers
             Session.Clear();
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Register()
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,75 @@
+﻿@model PontoMap.ViewModel.RegistrarViewModel
+@{
+    ViewBag.Title = "Registrar";
+}
+
+<style>
+    .formContainer {
+        display: inline-block;
+    }
+
+    #containerRegister {
+        text-align: center;
+    }
+</style>
+
+
+<p>Ao se cadastrar você tem direito a cadastrar 2 funcionários para testar o Ponto Map por dois meses!</p>
+
+<div class="row">
+
+    @using (Html.BeginForm("Login", "Register", FormMethod.Post))
+            {
+        <div id="containerRegister">
+            @Html.AntiForgeryToken()
+            <div class="formContainer">
+                <h4>Forneça os dos dados da empresa.</h4>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Empresa.DsCnpj)
+                    @Html.TextBoxFor(m => m.Empresa.DsCnpj, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Empresa.DsCnpj, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Empresa.NmFantasia)
+                    @Html.TextBoxFor(m => m.Empresa.NmFantasia, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Empresa.NmFantasia, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Empresa.DsRazaoSocial)
+                    @Html.TextBoxFor(m => m.Empresa.DsRazaoSocial, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Empresa.DsRazaoSocial, "", new { @class = "text-danger" })
+                </div>
+  
+                <hr />
+                <h4>Forneça os dados do responsável.</h4>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Usuario.NmUsuario)
+                    @Html.TextBoxFor(m => m.Usuario.NmUsuario, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Usuario.NmUsuario, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Usuario.DsEmail)
+                    @Html.TextBoxFor(m => m.Usuario.DsEmail, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Usuario.DsEmail, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Usuario.CdPassword)
+                    @Html.TextBoxFor(m => m.Usuario.CdPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Usuario.CdPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <input type="submit" value="Registrar" class="btn btn-default" />
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

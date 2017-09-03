@@ -18,7 +18,6 @@ namespace PontoMap.DAOs
         {
             strSql.Append("INSERT INTO [dbo].[Usuario]");
             strSql.Append("		 [IdEmpresa]");
-            strSql.Append("		,[DsPerfilUsuario]");
             strSql.Append("		,[CdCpf]");
             strSql.Append("		,[DsEmail]");
             strSql.Append("		,[DsCelular]");
@@ -37,7 +36,6 @@ namespace PontoMap.DAOs
 
 
             DynamicParameters parametros = new DynamicParameters();
-            parametros.Add("@DsPerfilUsuario", usuario.DsPerfilUsuario, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@CdCpf", usuario.CdCpf, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsCelular", usuario.DsCelular, DbType.String, ParameterDirection.Input);
@@ -51,15 +49,8 @@ namespace PontoMap.DAOs
 
         public Usuario Get(Usuario usuario)
         {
-            strSql.Append("SELECT [Idusuario]");
-            strSql.Append("		,[IdEmpresa]");
-            strSql.Append("		,[DsPerfilUsuario]");
-            strSql.Append("		,[CdCpf]");
-            strSql.Append("		,[DsEmail]");
-            strSql.Append("		,[DsCelular]");
-            strSql.Append("		,[CdPassword]");
-            strSql.Append("		,[DtNascimento]");
-            strSql.Append("		,[NmUsuario]");
+            Usuario userToReturn;
+            strSql.Append("SELECT * ");
             strSql.Append("	FROM [dbo].[Usuario]");
             strSql.Append("  WHERE DsEmail = @DsEmail AND CdPassword = @CdPassword");
 
@@ -67,19 +58,10 @@ namespace PontoMap.DAOs
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
 
-            return QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
-        }
+            userToReturn =  QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
+            userToReturn.Perfis = new PerfilDao().GetPerfisByEmail(userToReturn);
 
-        public Usuario GetPerfil(Usuario usuario)
-        {
-            strSql.Append("SELECT [DsPerfilUsuario]");
-            strSql.Append("	FROM [dbo].[Usuario]");
-            strSql.Append("  WHERE DsEmail = @DsEmail");
-
-            DynamicParameters parametros = new DynamicParameters();
-            parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
-
-            return QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
+            return userToReturn;
         }
 
         public List<Usuario> Read(Usuario usuario)

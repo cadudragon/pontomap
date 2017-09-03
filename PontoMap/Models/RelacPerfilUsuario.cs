@@ -6,12 +6,14 @@ using System.Web;
 
 namespace PontoMap.Models
 {
-    public class PerfilUsuario : BaseModel
+    public class RelacPerfilUsuario
     {
-
         [Required(ErrorMessage = "Descrição do Perfil de usuário obrigatória")]
         [Display(Name = "Descrição do Perfil de usuário")]
-        public string DsPerfilUsuario { get; set; }
+        public string DsPerfil { get; set; }
 
+        [Range(1, Int32.MaxValue)]
+        [Required(ErrorMessage = "Informe o Id do usuário")]
+        public int IdUsuario { get; set; }
     }
 }

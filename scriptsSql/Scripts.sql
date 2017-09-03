@@ -8,21 +8,27 @@ CREATE TABLE Empresa(
 )
 go
 
-CREATE TABLE PerfilUsuario(
-	DsPerfilUsuario VARCHAR(50) NOT NULL UNIQUE
-)
-go
-
 CREATE TABLE Usuario(
 	Idusuario INT NOT NULL IDENTITY (1,1),
 	IdEmpresa INT NOT NULL,
-	DsPerfilUsuario VARCHAR(50) NOT NULL,
 	CdCpf VARCHAR(20) NOT NULL UNIQUE,
 	DsEmail VARCHAR(50) NOT NULL UNIQUE,
 	DsCelular VARCHAR(11) NOT NULL UNIQUE,
 	CdPassword VARCHAR(11) NOT NULL,
 	DtNascimento DATE NOT NULL,
-	NmUsuario VARCHAR(50)
+	NmUsuario VARCHAR(50),
+	UNIQUE(Idusuario,IdEmpresa)
+)
+go
+
+CREATE TABLE Perfil(
+	DsPerfil VARCHAR(50) NOT NULL
+)
+go
+
+CREATE TABLE RelacPerfilUsuario(
+	DsPerfil VARCHAR(50) NOT NULL,
+	Idusuario INT NOT NULL
 )
 go
 
@@ -32,27 +38,34 @@ CREATE TABLE Ponto(
 	IdEmpresa INT NOT NULL,
 	DtRegistro DATETIME NOT NULL,
 	CdLat DECIMAL(10,6) NOT NULL,
-	CdLng DECIMAL(10,6) NOT NULL,
-	UNIQUE (Idusuario, IdEmpresa, DtRegistro)
+	CdLng DECIMAL(10,6) NOT NULL
 )
 go
---CHAVES PRIMARIAS
 
+
+
+--CHAVES PRIMARIAS
 ALTER TABLE Empresa
 	ADD PRIMARY KEY(IdEmpresa)
 go
 
-ALTER TABLE PerfilUsuario
-	ADD PRIMARY KEY(DsPerfilUsuario)
-go
 
 ALTER TABLE Usuario
-	ADD PRIMARY KEY(IdUsuario, IdEmpresa)
+	ADD PRIMARY KEY(IdUsuario)
+go
+
+ALTER TABLE Perfil
+	ADD PRIMARY KEY(DsPerfil)
+go
+
+ALTER TABLE RelacPerfilUsuario
+	ADD PRIMARY KEY(DsPerfil,Idusuario)
 go
 
 ALTER TABLE Ponto
 	ADD PRIMARY KEY(Idusuario,IdEmpresa,DtRegistro)
 go
+
 
 --CHAVES ESTRANGEIRAS
 ALTER TABLE Usuario
@@ -61,12 +74,18 @@ ALTER TABLE Usuario
 go
 
 
-ALTER TABLE Usuario
-	ADD FOREIGN KEY(DsPerfilUsuario)
-		REFERENCES PerfilUsuario
+ALTER TABLE RelacPerfilUsuario
+	ADD FOREIGN KEY(DsPerfil)
+		REFERENCES Perfil
 go
 
+ALTER TABLE RelacPerfilUsuario
+	ADD FOREIGN KEY(Idusuario)
+		REFERENCES Usuario
+go
+
+
 ALTER TABLE Ponto
-	ADD FOREIGN KEY(Idusuario,IdEmpresa)
+	ADD FOREIGN KEY(Idusuario)
 		REFERENCES Usuario
 go
