@@ -36,6 +36,7 @@ namespace PontoMap.DAOs
 
 
             DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.String, ParameterDirection.Input);
             parametros.Add("@CdCpf", usuario.CdCpf, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsCelular", usuario.DsCelular, DbType.String, ParameterDirection.Input);
@@ -59,7 +60,9 @@ namespace PontoMap.DAOs
             parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
 
             userToReturn =  QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
-            userToReturn.Perfis = new PerfilDao().GetPerfisByEmail(userToReturn);
+
+            if(userToReturn != null)
+                userToReturn.Perfis = new PerfilDao().GetPerfisByEmail(userToReturn);
 
             return userToReturn;
         }

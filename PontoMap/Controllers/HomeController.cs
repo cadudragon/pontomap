@@ -16,18 +16,17 @@ namespace PontoMap.Controllers
             
             return View();
         }
-
-        [Authorize (Roles = "master")]
+        
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Nos adequamos ao seu sistema atual!";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Página de contato.";
 
             return View();
         }

@@ -36,11 +36,14 @@ namespace PontoMap.Models
 
         [Required(ErrorMessage = "Senha obrigatório")]
         [Display(Name = "Senha")]
+        [StringLength(50, ErrorMessage = "Sua senha deve ter no mínimo 5 caracteres.", MinimumLength = 4)]
+        [DataType(DataType.Password)]
         public string CdPassword { get; set; }
 
 
         [Required(ErrorMessage = "Data de Nascimento obrigatória")]
         [Display(Name = "Data de Nascimento")]
+        [DataType(DataType.Date,ErrorMessage = "Insira uma data válida no formato dd/mm/yyyy")]
         public DateTime DtNascimento { get; set; }
 
         [Required(ErrorMessage = "Nome do Usuário obrigatório")]

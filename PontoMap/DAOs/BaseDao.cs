@@ -42,6 +42,15 @@ namespace PontoMap.DAOs
             }
         }
 
+        protected int Execute(string sql, CommandType tipoComando, object parameters = null)
+        {
+            using (var connection = CreateConnection())
+            {
+                connection.Open();
+                return connection.Execute(sql, parameters, commandType: tipoComando);
+            }
+        }
+
         // Other Helpers...
 
         private IDbConnection CreateConnection()

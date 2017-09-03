@@ -24,10 +24,25 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                     <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+
+                    @if (Request.IsAuthenticated && User.IsInRole("master"))
+                    {
+                        <li>@Html.ActionLink("Empresas", "index", "Empresa")</li>
+                    }
+
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Registar", "Register", "Account")</li>
-                    <li>@Html.ActionLink("Logar", "Login", "Account")</li>
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Sair", "LogOut", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Registar", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Logar", "Login", "Account")</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -36,7 +51,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Ponto map</p>
         </footer>
     </div>
 

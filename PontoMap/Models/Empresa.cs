@@ -25,5 +25,7 @@ namespace PontoMap.Models
         [Required(ErrorMessage = "Nome Fantasia obrigatório")]
         [Display(Name = "Nome Fantasia")]
         public string NmFantasia { get; set; }
+
+        public Usuario UsuarioAdmin { get; set; }
     }
 }

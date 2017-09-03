@@ -1,5 +1,7 @@
-﻿using PontoMap.DAOs;
+﻿using PontoMap.BOs;
+using PontoMap.DAOs;
 using PontoMap.Models;
+using PontoMap.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,19 +26,27 @@ namespace PontoMap.Controllers
         {
             try
             {
-                Usuario testeUser;
-                testeUser = new UsuarioDao().Get(usuario);
+                Usuario usuarioLogado;
+                usuarioLogado = new UsuarioDao().Get(usuario);
 
-                if (testeUser == null)
+                if (usuarioLogado == null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    //return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(string.Empty, "Usuário e/ou senha incorreto(s).");
+                    return View(usuario);
                 }
 
-                FormsAuthentication.SetAuthCookie(testeUser.DsEmail, false);
-                Session["Nome"] = testeUser.NmUsuario;
+                FormsAuthentication.SetAuthCookie(usuarioLogado.DsEmail, false);
+                Session["Nome"] = usuarioLogado.NmUsuario;
+                Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
+
+                if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master")) {
+                    return RedirectToAction("Index", "Empresa");
+                }
+
                 return RedirectToAction("About", "Home");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View();
             }
@@ -53,6 +63,25 @@ namespace PontoMap.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegistrarViewModel registrarObj)
+        {
+            Empresa empresa = registrarObj.Empresa;
+            empresa.UsuarioAdmin = registrarObj.Usuario;
+            empresa.UsuarioAdmin.CdPassword = registrarObj.Password;
+
+            new EmpresaBO().Create(empresa);
+
+            if(empresa.Status == 0)
+            {
+                ModelState.AddModelError(string.Empty, empresa.Mensagem);
+                return View(registrarObj);
+            }
+
+            TempData["mensagem"] = "<strong>Seja bem vindo!</strong> Use o login e senha cadastrados para realizar o login!";
+            return RedirectToAction("Login", "Account");
         }
     }
 }
