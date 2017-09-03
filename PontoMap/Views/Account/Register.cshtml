@@ -56,6 +56,11 @@
                     @Html.ValidationMessageFor(m => m.Usuario.DsEmail, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group">
+                    @Html.LabelFor(m => m.Usuario.CdCpf)
+                    @Html.TextBoxFor(m => m.Usuario.CdCpf, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Usuario.CdCpf, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(m => m.Usuario.CdPassword)
                     @Html.TextBoxFor(m => m.Usuario.CdPassword, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Usuario.CdPassword, "", new { @class = "text-danger" })

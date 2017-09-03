@@ -152,6 +152,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomValidations\CustomValidationCNPJ.cs" />
+    <Compile Include="CustomValidations\CustomValidationCPF.cs" />
+    <Compile Include="CustomValidations\Util.cs" />
     <Compile Include="DAOs\BaseDao.cs" />
     <Compile Include="DAOs\EmpresaDao.cs" />
     <Compile Include="DAOs\PerfilDao.cs" />
@@ -381,6 +384,7 @@
     <Content Include="Content\template_gentelella\vendors\nprogress\Notes.md" />
     <Content Include="Content\template_gentelella\vendors\nprogress\Readme.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CustomValidations.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

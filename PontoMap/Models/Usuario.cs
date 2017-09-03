@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PontoMap.CustomValidations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace PontoMap.Models
         public List<Perfil> Perfis  { get; set; }
 
         [Required(ErrorMessage = "CPF obrigatório")]
+        [CustomValidationCPF(ErrorMessage = "CPF inválido")]
         [Display(Name = "CPF")]
         public string CdCpf { get; set; }
 

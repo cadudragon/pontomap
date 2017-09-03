@@ -42,6 +42,19 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/customScripts")
     @RenderSection("scripts", required: false)
+
+    <script>
+        $.validator.addMethod("customvalidationcpf", function (value, element, param) {
+            return validaCPF(value); //chama um método validaCPF implementado em javascript
+        });
+        $.validator.unobtrusive.adapters.addBool("customvalidationcpf");
+
+        $.validator.addMethod("customvalidationcnpj", function (value, element, param) {
+            return validaCNPJ(value); //chama um método validaCNPJ implementado em javascript
+        });
+        $.validator.unobtrusive.adapters.addBool("customvalidationcnpj");
+    </script>
 </body>
 </html>
