@@ -9,7 +9,7 @@ using System.Web;
 
 namespace PontoMap.BOs
 {
-    public class EmpresaBO : ICrud<Empresa>
+    public class EmpresaBo : ICrud<Empresa>
     {
         public bool Create(Empresa empresa)
         {
@@ -61,11 +61,11 @@ namespace PontoMap.BOs
             }
         }
 
-        public Empresa Get(Empresa empresa)
+        public Empresa Login(Empresa empresa)
         {
             try
             {
-                return new EmpresaDao().Get(empresa);
+                return new EmpresaDao().Login(empresa);
             }
             catch (Exception ex)
             {

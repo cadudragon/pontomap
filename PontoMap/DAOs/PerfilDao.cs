@@ -24,7 +24,7 @@ namespace PontoMap.DAOs
             throw new NotImplementedException();
         }
 
-        public Usuario Get(Usuario obj)
+        public Usuario Login(Usuario obj)
         {
             throw new NotImplementedException();
         }

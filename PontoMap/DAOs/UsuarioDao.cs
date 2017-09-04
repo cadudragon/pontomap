@@ -16,17 +16,16 @@ namespace PontoMap.DAOs
 
         public bool Create(Usuario usuario)
         {
-            strSql.Append("INSERT INTO [dbo].[Usuario]");
-            strSql.Append("		 [IdEmpresa]");
-            strSql.Append("		,[CdCpf]");
-            strSql.Append("		,[DsEmail]");
-            strSql.Append("		,[DsCelular]");
-            strSql.Append("		,[CdPassword]");
-            strSql.Append("		,[DtNascimento]");
-            strSql.Append("		,[NmUsuario])");
+            strSql.Append("INSERT INTO Usuario(");
+            strSql.Append("		 IdEmpresa");
+            strSql.Append("		,CdCpf");
+            strSql.Append("		,DsEmail");
+            strSql.Append("		,DsCelular");
+            strSql.Append("		,CdPassword");
+            strSql.Append("		,DtNascimento");
+            strSql.Append("		,NmUsuario)");
             strSql.Append("	VALUES");
             strSql.Append("	    (@IdEmpresa");
-            strSql.Append("		,@DsPerfilUsuario");
             strSql.Append("		,@CdCpf");
             strSql.Append("		,@DsEmail");
             strSql.Append("		,@DsCelular");
@@ -36,7 +35,7 @@ namespace PontoMap.DAOs
 
 
             DynamicParameters parametros = new DynamicParameters();
-            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.String, ParameterDirection.Input);
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@CdCpf", usuario.CdCpf, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@DsCelular", usuario.DsCelular, DbType.String, ParameterDirection.Input);
@@ -44,13 +43,87 @@ namespace PontoMap.DAOs
             parametros.Add("@DtNascimento", usuario.DtNascimento, DbType.String, ParameterDirection.Input);
             parametros.Add("@NmUsuario", usuario.NmUsuario, DbType.String, ParameterDirection.Input);
 
-            int ret = Execute(strSql.ToString(), parametros);
+            Execute(strSql.ToString(), parametros);
+            usuario.Status = 1;
             return true;
         }
 
         public Usuario Get(Usuario usuario)
         {
-            Usuario userToReturn;
+            strSql.Append("SELECT * ");
+            strSql.Append("	FROM [dbo].[Usuario]");
+            strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@idEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+
+            var userToReturn = QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
+
+            if (userToReturn != null)
+                userToReturn.Perfis = new PerfilDao().GetPerfisByEmail(userToReturn);
+
+            usuario.Status = 1;
+            return userToReturn;
+        }
+
+        public List<Usuario> Read(Usuario usuario)
+        {
+            strSql.Append("SELECT [Idusuario]");
+            strSql.Append("		,[IdEmpresa]");
+            strSql.Append("		,[CdCpf]");
+            strSql.Append("		,[DsEmail]");
+            strSql.Append("		,[DsCelular]");
+            strSql.Append("		,[CdPassword]");
+            strSql.Append("		,[DtNascimento]");
+            strSql.Append("		,[NmUsuario]");
+            strSql.Append("	FROM [dbo].[Usuario]");
+            strSql.Append(" WHERE IdEmpresa = @IdEmpresa");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+
+            usuario.Status = 1;
+            return Query<Usuario>(strSql.ToString(), parametros);
+        }
+
+        public bool Update(Usuario usuario)
+        {
+            strSql.Append("UPDATE [dbo].[Usuario]");
+            strSql.Append("	SET [IdEmpresa] = @IdEmpresa");
+            strSql.Append("		,[CdCpf] = @CdCpf");
+            strSql.Append("		,[DsEmail] = @DsEmail");
+            strSql.Append("		,[DsCelular] = @DsCelular");
+            strSql.Append("		,[CdPassword] = @CdPassword");
+            strSql.Append("		,[DtNascimento] = @DtNascimento");
+            strSql.Append("		,[NmUsuario] = @NmUsuario");
+            strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@idEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+
+            Execute(strSql.ToString(), parametros);
+            usuario.Status = 1;
+            return true;
+        }
+
+        public bool Delete(Usuario usuario)
+        {
+            strSql.Append("DELETE FROM [dbo].[Usuario]");
+            strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+
+            Execute(strSql.ToString(), parametros);
+            usuario.Status = 1;
+            return true;
+        }
+
+        public Usuario Login(Usuario usuario)
+        {
             strSql.Append("SELECT * ");
             strSql.Append("	FROM [dbo].[Usuario]");
             strSql.Append("  WHERE DsEmail = @DsEmail AND CdPassword = @CdPassword");
@@ -59,27 +132,13 @@ namespace PontoMap.DAOs
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
             parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
 
-            userToReturn =  QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
+            var userToReturn = QueryFirstOrDefault<Usuario>(strSql.ToString(), parametros);
 
-            if(userToReturn != null)
+            if (userToReturn != null)
                 userToReturn.Perfis = new PerfilDao().GetPerfisByEmail(userToReturn);
 
+            usuario.Status = 1;
             return userToReturn;
-        }
-
-        public List<Usuario> Read(Usuario usuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(Usuario usuario)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(Usuario usuario)
-        {
-            throw new NotImplementedException();
         }
     }
 }

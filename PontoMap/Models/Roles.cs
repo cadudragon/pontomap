@@ -43,7 +43,7 @@ namespace PontoMap.Models
 
         public override string[] GetAllRoles()
         {
-            Usuario user = new UsuarioDao().Get(new Usuario());
+            Usuario user = new UsuarioDao().Login(new Usuario());
             throw new NotImplementedException();
         }
 

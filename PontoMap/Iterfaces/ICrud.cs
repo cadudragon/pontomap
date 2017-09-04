@@ -10,7 +10,7 @@ namespace PontoMap.Interfaces
     {
         bool Create(T obj);
         List<T> Read(T obj);
-        T Get(T obj);
+        T Login(T obj);
         bool Update(T obj);
         bool Delete(T obj);
     }

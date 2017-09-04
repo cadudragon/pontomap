@@ -1,0 +1,45 @@
+﻿@model PontoMap.Models.Usuario
+@{
+    ViewBag.Title = "Adicionar Usuário";
+}
+
+@using (Html.BeginForm("Create", "Usuario", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div id="containerRegister">
+        @Html.AntiForgeryToken()
+        <div class="formContainer">
+            <h4>Forneça os dos dados da empresa.</h4>
+            <h4>Forneça os dados do responsável.</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NmUsuario)
+                @Html.TextBoxFor(m => m.NmUsuario, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NmUsuario, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.DtNascimento)
+                @Html.TextBoxFor(m => m.DtNascimento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DtNascimento, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DsEmail)
+                @Html.TextBoxFor(m => m.DsEmail, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DsEmail, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.CdCpf)
+                @Html.TextBoxFor(m => m.CdCpf, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CdCpf, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DsCelular)
+                @Html.TextBoxFor(m => m.DsCelular, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DsCelular, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <input type="submit" value="Registrar" class="btn btn-default" />
+    </div>
+}

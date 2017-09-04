@@ -32,7 +32,7 @@ namespace PontoMap.DAOs
             return true;
         }
 
-        public Empresa Get(Empresa empresa)
+        public Empresa Login(Empresa empresa)
         {
             return QueryFirstOrDefault<Empresa>("SELECT * FROM Accounts WHERE Id = @Id", new { empresa.IdEmpresa });
         }

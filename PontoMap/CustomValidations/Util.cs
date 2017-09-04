@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using PontoMap.Models;
 
 namespace PontoMap.CustomValidations
 {
@@ -83,7 +85,6 @@ namespace PontoMap.CustomValidations
 
         public static bool ValidaCNPJ(string cnpj)
         {
-            return true;
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int soma;
@@ -114,6 +115,36 @@ namespace PontoMap.CustomValidations
             else
                 resto = 11 - resto;
             digito = digito + resto.ToString();
+            return true;
+        }
+
+        public static bool ValidaObjeto(BaseModel objeto)
+        {
+
+            ValidationContext vc = new ValidationContext(objeto);
+            ICollection<ValidationResult> results = new List<ValidationResult>();
+            if (Validator.TryValidateObject(objeto, vc, results, true)) return true;
+
+            foreach (var result in results) objeto.Mensagem += result.MemberNames.FirstOrDefault() + " : " + result;
+
+            return false;
+        }
+
+        public static bool ValidaAtributos(BaseModel objeto, List<string> atributos)
+        {
+            ValidationContext vc = new ValidationContext(objeto);
+            ICollection<ValidationResult> results = new List<ValidationResult>();
+            if (Validator.TryValidateObject(objeto, vc, results, true)) return true;
+
+            foreach (var result in results)
+            {
+                if (atributos.Contains(result.MemberNames.FirstOrDefault()))
+                {
+                    objeto.Mensagem += result.MemberNames.FirstOrDefault() + " : " + result;
+                    return false;
+                }
+
+            }
             return true;
         }
     }

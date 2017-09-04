@@ -1,0 +1,43 @@
+﻿
+
+
+@{
+    ViewBag.Title = "Usuários";
+    var grid = new WebGrid(source: Model, canSort: true);
+}
+
+<div class="gridContainer">
+    
+    <a href='@Url.Action("Create", "Usuario")'>
+        <button type="button" class="btn btn-default btn-sm btn btn-success">
+            <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Novo Usuário
+        </button>
+    </a>
+
+
+        @if (Model == null)
+        {
+            return;
+        }
+
+
+        @grid.GetHtml(
+        tableStyle: "table",
+        headerStyle: "thead-inverse",
+        columns:
+            grid.Columns(
+                grid.Column(columnName: "Deletar", header: "Deletar", format:
+                @<button type="button" class="btn btn-default btn-sm btn btn-danger" onclick="editarUsuario(@item.IdUsuario)" data-toggle="modal" data-target="#empresaModal">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Deletar
+                </button>
+                    ),
+                grid.Column(columnName: "NmUsuario", header: "NOME", format: @<text>@item.NmUsuario</text>),
+                grid.Column(columnName: "CdCpf", header: "CPF", format: @<text>@item.CdCpf</text>),
+                grid.Column(columnName: "Editar", header: "Editar", format:
+                @<button type="button" class="btn btn-default btn-sm btn btn-warning" onclick="editarUsuario(@item.IdUsuario)" data-toggle="modal" data-target="#empresaModal">
+                    <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
+                </button>
+                    )
+                ))
+</div>
+

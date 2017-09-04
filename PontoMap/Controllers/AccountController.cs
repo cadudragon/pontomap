@@ -24,32 +24,28 @@ namespace PontoMap.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Usuario usuario)
         {
-            try
+            var usuarioLogado = new UsuarioBo().Login(usuario);
+
+            if (usuarioLogado == null)
             {
-                Usuario usuarioLogado;
-                usuarioLogado = new UsuarioDao().Get(usuario);
-
-                if (usuarioLogado == null)
-                {
-                    //return RedirectToAction("Index", "Home");
-                    ModelState.AddModelError(string.Empty, "Usuário e/ou senha incorreto(s).");
-                    return View(usuario);
-                }
-
-                FormsAuthentication.SetAuthCookie(usuarioLogado.DsEmail, false);
-                Session["Nome"] = usuarioLogado.NmUsuario;
-                Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
-
-                if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master")) {
-                    return RedirectToAction("Index", "Empresa");
-                }
-
-                return RedirectToAction("About", "Home");
+                //return RedirectToAction("Index", "Home");
+                ModelState.AddModelError(string.Empty, "Usuário e/ou senha incorreto(s).");
+                return View(usuario);
             }
-            catch (Exception ex)
+
+            FormsAuthentication.SetAuthCookie(usuarioLogado.DsEmail, false);
+            Session["Nome"] = usuarioLogado.NmUsuario;
+            Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
+            Session["IdUsuario"] = usuarioLogado.IdUsuario;
+
+            TempData["mensagem"] = "Seja bem vindo," + usuarioLogado.NmUsuario + "!";
+
+            if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master"))
             {
-                return View();
+                return RedirectToAction("Index", "Empresa");
             }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [Authorize]
@@ -72,7 +68,7 @@ namespace PontoMap.Controllers
             empresa.UsuarioAdmin = registrarObj.Usuario;
             empresa.UsuarioAdmin.CdPassword = registrarObj.Password;
 
-            new EmpresaBO().Create(empresa);
+            new EmpresaBo().Create(empresa);
 
             if(empresa.Status == 0)
             {
