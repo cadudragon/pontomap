@@ -49,5 +49,14 @@ namespace PontoMap.Models
         [Required(ErrorMessage = "Nome do Usuário obrigatório")]
         [Display(Name = "Nome Usuário")]
         public string NmUsuario { get; set; }
+
+
+        [Required(ErrorMessage = "Ativo obrigatório")]
+        [Display(Name = "CdAtivo")]
+        public bool CdAtivo { get; set; }
+
+        [Required(ErrorMessage = "CdIsAdmin obrigatório")]
+        [Display(Name = "CdIsAdmin")]
+        public bool CdIsAdmin { get; set; }
     }
 }

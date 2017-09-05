@@ -147,5 +147,22 @@ namespace PontoMap.CustomValidations
             }
             return true;
         }
+
+        /// <summary>
+        /// Verifica se é um inteiro
+        /// O retorno é o próprio número caso inteiro se não retorna um zero
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="valueIfNotConverted"></param>
+        /// <returns>Próprio número caso inteiro se não 0</returns>
+        public static int ValidaInteiro(string input, int valueIfNotConverted)
+        {
+            int value;
+            if (Int32.TryParse(input, out value))
+            {
+                return value;
+            }
+            return valueIfNotConverted;
+        }
     }
 }

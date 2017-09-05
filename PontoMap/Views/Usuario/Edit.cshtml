@@ -3,7 +3,7 @@
     ViewBag.Title = "Adicionar Usuário";
 }
 
-@using (Html.BeginForm("Create", "Usuario", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post))
 {
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div id="containerRegister">
@@ -12,9 +12,12 @@
             <p>Forneça os dados Funcionário. A senha padrão será o CPF, oriente o colaborador a logar e altera-la para uma maior segurança.</p>
 
             <div class="form-group">
+                
+                @Html.HiddenFor(m => m.IdUsuario)
+
                 @Html.LabelFor(m => m.NmUsuario)
-                @Html.TextBoxFor(m => m.NmUsuario, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.NmUsuario, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.NmUsuario, new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.NmUsuario, "", new {@class = "text-danger"})
             </div>
 
             <div class="form-group">

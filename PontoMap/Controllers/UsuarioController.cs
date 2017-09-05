@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PontoMap.BOs;
+using PontoMap.CustomValidations;
 using PontoMap.DAOs;
 using PontoMap.Models;
 
@@ -15,12 +16,13 @@ namespace PontoMap.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
-            List<Usuario> usuarioList = new UsuarioBo().Read(new Usuario{IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
+            List<Usuario> usuarioList = new UsuarioBo().Read(new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
 
-            if (usuarioList != null)
-                return View(usuarioList);
+            var results = from usuario in usuarioList
+                          where usuario.CdIsAdmin == false
+                          select usuario;
 
-            return View();
+            return View(results.ToList());
         }
 
         [Authorize(Roles = "admin")]
@@ -38,11 +40,57 @@ namespace PontoMap.Controllers
             usuario.IdEmpresa = int.Parse(Session["IdEmpresa"].ToString());
             new UsuarioBo().Create(usuario);
 
-            if(usuario.Status == 1)
+            if (usuario.Status == 1)
                 return RedirectToAction("Index", "Usuario");
 
             ModelState.AddModelError(string.Empty, usuario.Mensagem);
             return View(usuario);
         }
+
+        [Authorize(Roles = "admin")]
+        public ActionResult Edit(int? idUsuario)
+        {
+
+            if (idUsuario == null)
+                return RedirectToAction("Index", "Usuario");
+
+
+
+            Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = (int)idUsuario };
+
+
+
+
+            usuario = new UsuarioBo().Get(usuario);
+            return View(usuario);
+
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult Edit(Usuario usuario)
+        {
+            usuario.IdEmpresa = int.Parse(Session["IdEmpresa"].ToString());
+            new UsuarioBo().Update(usuario);
+
+            if (usuario.Status == 1)
+                return RedirectToAction("Index", "Usuario");
+
+            ModelState.AddModelError(string.Empty, usuario.Mensagem);
+            return View(usuario);
+
+
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public ActionResult Delete(int idUsuario)
+        {
+            new UsuarioBo().Delete(new Usuario { IdUsuario = idUsuario, IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
+            return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

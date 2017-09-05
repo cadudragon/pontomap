@@ -13,6 +13,12 @@ namespace PontoMap.Controllers
 {
     public class AccountController : Controller
     {
+
+        public ActionResult Index()
+        {
+            return RedirectToAction("Login");
+        }
+
         // GET: Account
         public ActionResult Login()
         {
@@ -37,8 +43,6 @@ namespace PontoMap.Controllers
             Session["Nome"] = usuarioLogado.NmUsuario;
             Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
             Session["IdUsuario"] = usuarioLogado.IdUsuario;
-
-            TempData["mensagem"] = "Seja bem vindo," + usuarioLogado.NmUsuario + "!";
 
             if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master"))
             {
@@ -76,7 +80,7 @@ namespace PontoMap.Controllers
                 return View(registrarObj);
             }
 
-            TempData["mensagem"] = "<strong>Seja bem vindo!</strong> Use o login e senha cadastrados para realizar o login!";
+            
             return RedirectToAction("Login", "Account");
         }
     }

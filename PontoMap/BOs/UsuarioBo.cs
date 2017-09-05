@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using PontoMap.CustomValidations;
@@ -29,10 +30,47 @@ namespace PontoMap.BOs
                 }
                 return false;
             }
+            catch (SqlException sqlExc)
+            {
+                foreach (SqlError error in sqlExc.Errors)
+                {
+                    usuario.Status = 0;
+
+                    if (error.Number == 2627)
+                    {
+                        usuario.Mensagem = "Já existe um funcionário com as informações fornecidas no sistema, para dúvidas ou informações entre em contato";
+                        return false;
+                    }
+                    usuario.Mensagem += string.Format("{0}: {1}", error.Number, error.Message);
+                }
+                return false;
+            }
             catch (Exception ex)
             {
                 usuario.Mensagem = ex.ToString();
                 return false;
+            }
+        }
+
+        public Usuario Get(Usuario usuario)
+        {
+
+            try
+            {
+
+                List<string> atributosParaValidar = new List<string>();
+                atributosParaValidar.Add(nameof(usuario.IdUsuario));
+                atributosParaValidar.Add(nameof(usuario.IdEmpresa));
+                if (Util.ValidaAtributos(usuario, atributosParaValidar))
+                {
+                    return new UsuarioDao().Get(usuario);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                usuario.Mensagem = ex.ToString();
+                return null;
             }
         }
 
@@ -103,6 +141,21 @@ namespace PontoMap.BOs
                 if (Util.ValidaObjeto(usuario))
                     return new UsuarioDao().Update(usuario);
 
+                return false;
+            }
+            catch (SqlException sqlExc)
+            {
+                foreach (SqlError error in sqlExc.Errors)
+                {
+                    usuario.Status = 0;
+
+                    if (error.Number == 2627)
+                    {
+                        usuario.Mensagem = "Já existe um funcionário com as informações, para dúvidas ou informações entre em contato";
+                        return false;
+                    }
+                    usuario.Mensagem += string.Format("{0}: {1}", error.Number, error.Message);
+                }
                 return false;
             }
             catch (Exception ex)

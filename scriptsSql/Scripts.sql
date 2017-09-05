@@ -1,4 +1,4 @@
--- scripts banco
+﻿scripts banco
 
 CREATE TABLE Empresa(
 	IdEmpresa INT NOT NULL IDENTITY (1,1),
@@ -17,6 +17,8 @@ CREATE TABLE Usuario(
 	CdPassword VARCHAR(11) NOT NULL,
 	DtNascimento DATE NOT NULL,
 	NmUsuario VARCHAR(50),
+	CdIsAdmin bit DEFAULT 0 NOT NULL,
+	CdAtivo bit DEFAULT 1 NOT NULL,
 	UNIQUE(Idusuario,IdEmpresa)
 )
 go

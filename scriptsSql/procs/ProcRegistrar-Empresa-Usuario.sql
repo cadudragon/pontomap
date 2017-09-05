@@ -16,14 +16,15 @@ AS BEGIN BEGIN TRY BEGIN TRANSACTION
 	SET @IdEmpresaIdentity = SCOPE_IDENTITY();
 	
 	
-	INSERT INTO dbo.Usuario (IdEmpresa, CdCpf, DsEmail, DsCelular, CdPassword, DtNascimento, NmUsuario )
+	INSERT INTO dbo.Usuario (IdEmpresa, CdCpf, DsEmail, DsCelular, CdPassword, DtNascimento, NmUsuario,CdIsAdmin)
 	VALUES (@IdEmpresaIdentity,
 	        @CdCpf,
 	        @DsEmail,
 	        @DsCelular,
 	        @CdPassword,
 	        @DtNascimento,
-	        @NmUsuario)
+	        @NmUsuario,
+	        1)
 	SET @IdUsuarioIdentity = SCOPE_IDENTITY();
 	
 	

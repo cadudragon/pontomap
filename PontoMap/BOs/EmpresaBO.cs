@@ -54,6 +54,21 @@ namespace PontoMap.BOs
 
                 return false;
             }
+            catch (SqlException sqlExc)
+            {
+                foreach (SqlError error in sqlExc.Errors)
+                {
+                    empresa.Status = 0;
+
+                    if (error.Number == 50000)
+                    {
+                        empresa.Mensagem = "Já existe uma empresa e/ou um funcinário com as informações fornecidas no sistema, para dúvidas ou informações entre em contato";
+                        return false;
+                    }
+                    empresa.Mensagem += string.Format("{0}: {1}", error.Number, error.Message);
+                }
+                return false;
+            }
             catch (Exception ex)
             {
                 empresa.Mensagem = ex.ToString();
@@ -98,6 +113,21 @@ namespace PontoMap.BOs
                     return true;
                 }
 
+                return false;
+            }
+            catch (SqlException sqlExc)
+            {
+                foreach (SqlError error in sqlExc.Errors)
+                {
+                    empresa.Status = 0;
+
+                    if (error.Number == 50000)
+                    {
+                        empresa.Mensagem = "Já existe uma empresa e/ou um funcinário com as informações fornecidas no sistema, para dúvidas ou informações entre em contato";
+                        return false;
+                    }
+                    empresa.Mensagem += string.Format("{0}: {1}", error.Number, error.Message);
+                }
                 return false;
             }
             catch (Exception ex)

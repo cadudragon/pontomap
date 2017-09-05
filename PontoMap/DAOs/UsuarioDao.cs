@@ -52,7 +52,7 @@ namespace PontoMap.DAOs
         {
             strSql.Append("SELECT * ");
             strSql.Append("	FROM [dbo].[Usuario]");
-            strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa");
+            strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa AND CdAtivo = 1");
 
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
@@ -69,16 +69,9 @@ namespace PontoMap.DAOs
 
         public List<Usuario> Read(Usuario usuario)
         {
-            strSql.Append("SELECT [Idusuario]");
-            strSql.Append("		,[IdEmpresa]");
-            strSql.Append("		,[CdCpf]");
-            strSql.Append("		,[DsEmail]");
-            strSql.Append("		,[DsCelular]");
-            strSql.Append("		,[CdPassword]");
-            strSql.Append("		,[DtNascimento]");
-            strSql.Append("		,[NmUsuario]");
+            strSql.Append("SELECT *");
             strSql.Append("	FROM [dbo].[Usuario]");
-            strSql.Append(" WHERE IdEmpresa = @IdEmpresa");
+            strSql.Append(" WHERE IdEmpresa = @IdEmpresa AND CdAtivo = 1");
 
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
@@ -110,12 +103,25 @@ namespace PontoMap.DAOs
 
         public bool Delete(Usuario usuario)
         {
-            strSql.Append("DELETE FROM [dbo].[Usuario]");
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+
+            Execute("SP_DeletarUsuario", CommandType.StoredProcedure, parametros);
+            usuario.Status = 1;
+            return true;
+        }
+
+        public bool Desativar(Usuario usuario)
+        {
+            strSql.Append("UPDATE [dbo].[Usuario]");
+            strSql.Append("	SET [CdAtivo] = @CdAtivo");
             strSql.Append("  WHERE IdUsuario = @IdUsuario AND IdEmpresa = @IdEmpresa");
 
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@idEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@CdAtivo", false, DbType.Boolean, ParameterDirection.Input);
 
             Execute(strSql.ToString(), parametros);
             usuario.Status = 1;
@@ -126,7 +132,7 @@ namespace PontoMap.DAOs
         {
             strSql.Append("SELECT * ");
             strSql.Append("	FROM [dbo].[Usuario]");
-            strSql.Append("  WHERE DsEmail = @DsEmail AND CdPassword = @CdPassword");
+            strSql.Append("  WHERE DsEmail = @DsEmail AND CdPassword = @CdPassword AND CdAtivo = 1");
 
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
