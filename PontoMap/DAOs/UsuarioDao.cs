@@ -94,7 +94,13 @@ namespace PontoMap.DAOs
 
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@IdUsuario", usuario.IdUsuario, DbType.Int32, ParameterDirection.Input);
-            parametros.Add("@idEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@IdEmpresa", usuario.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@CdCpf", usuario.CdCpf, DbType.String, ParameterDirection.Input);
+            parametros.Add("@DsEmail", usuario.DsEmail, DbType.String, ParameterDirection.Input);
+            parametros.Add("@DsCelular", usuario.DsCelular, DbType.String, ParameterDirection.Input);
+            parametros.Add("@CdPassword", usuario.CdPassword, DbType.String, ParameterDirection.Input);
+            parametros.Add("@DtNascimento", usuario.DtNascimento, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@NmUsuario", usuario.NmUsuario, DbType.String, ParameterDirection.Input);
 
             Execute(strSql.ToString(), parametros);
             usuario.Status = 1;

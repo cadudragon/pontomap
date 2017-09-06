@@ -44,6 +44,7 @@ namespace PontoMap.Models
         [Required(ErrorMessage = "Data de Nascimento obrigatória")]
         [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date,ErrorMessage = "Insira uma data válida no formato dd/mm/yyyy")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DtNascimento { get; set; }
 
         [Required(ErrorMessage = "Nome do Usuário obrigatório")]

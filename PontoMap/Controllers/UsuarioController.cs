@@ -41,7 +41,10 @@ namespace PontoMap.Controllers
             new UsuarioBo().Create(usuario);
 
             if (usuario.Status == 1)
+            {
+                TempData["message"] = "Usuário cadastrado com sucesso;";
                 return RedirectToAction("Index", "Usuario");
+            }
 
             ModelState.AddModelError(string.Empty, usuario.Mensagem);
             return View(usuario);
@@ -74,7 +77,10 @@ namespace PontoMap.Controllers
             new UsuarioBo().Update(usuario);
 
             if (usuario.Status == 1)
+            {
+                TempData["message"] = "Usuário editado com sucesso.";
                 return RedirectToAction("Index", "Usuario");
+            }
 
             ModelState.AddModelError(string.Empty, usuario.Mensagem);
             return View(usuario);

@@ -4,8 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+
+    <style>
+        body {
+            background-color: lightgray;
+        }
+
+        .row {
+            height: 100%;
+        }
+    </style>
 
 </head>
 <body>
@@ -86,9 +98,29 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/customScripts")
+    @Scripts.Render("~/bundles/customScripts")
     @RenderSection("scripts", required: false)
 
     <script>
+        //mascasras
+        VMasker($('.data')).maskPattern('99/99/9999');
+        VMasker($('.cpf')).maskPattern('999.999.999-99');
+        VMasker($('.cel')).maskPattern('(99) 999999999');
+        VMasker($('.cnpj')).maskPattern('99.999.999/9999-99');
+
+        $.notify({
+                // options
+                message: 'Hello World'
+            },
+            {
+                // settings
+                type: 'success'
+            });
+
+
+
+
+
         $.validator.addMethod("customvalidationcpf",
             function (value, element, param) {
                 return validaCPF(value); //chama um método validaCPF implementado em javascript
@@ -101,6 +133,11 @@
                 return validaCNPJ(value); //chama um método validaCNPJ implementado em javascript
             });
         $.validator.unobtrusive.adapters.addBool("customvalidationcnpj");
+
+
     </script>
+
+
+
 </body>
 </html>

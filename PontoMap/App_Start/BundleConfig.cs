@@ -24,11 +24,17 @@ namespace PontoMap
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/customScripts").Include(
-            "~/Scripts/CustomValidations.js"));
+            "~/Scripts/CustomValidations.js",
+            "~/Scripts/bootstrap-notify.min.js",
+            "~/Scripts/vanilla-masker.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+            bundles.Add(new StyleBundle("~/bundles/customCss").Include(
+                "~/Content/formulario.css"));
         }
     }
 }

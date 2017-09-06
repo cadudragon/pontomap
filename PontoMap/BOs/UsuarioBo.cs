@@ -17,15 +17,18 @@ namespace PontoMap.BOs
             try
             {
                 List<string> atributosParaValidar = new List<string>();
-                atributosParaValidar.Add(nameof(Usuario.CdCpf));
-                atributosParaValidar.Add(nameof(Usuario.DsEmail));
-                atributosParaValidar.Add(nameof(Usuario.DsCelular));
-                atributosParaValidar.Add(nameof(Usuario.CdPassword));
-                atributosParaValidar.Add(nameof(Usuario.DtNascimento));
-                atributosParaValidar.Add(nameof(Usuario.NmUsuario));
+                atributosParaValidar.Add(nameof(usuario.CdCpf));
+                atributosParaValidar.Add(nameof(usuario.DsEmail));
+                atributosParaValidar.Add(nameof(usuario.DsCelular));
+                atributosParaValidar.Add(nameof(usuario.CdPassword));
+                atributosParaValidar.Add(nameof(usuario.DtNascimento));
+                atributosParaValidar.Add(nameof(usuario.NmUsuario));
 
                 if (Util.ValidaAtributos(usuario, atributosParaValidar))
                 {
+                    usuario.CdCpf = Util.RemoveNaoNumericos(usuario.CdCpf);
+                    usuario.DsCelular = Util.RemoveNaoNumericos(usuario.DsCelular);
+                    usuario.CdPassword = Util.RemoveNaoNumericos(usuario.CdPassword);
                     return new UsuarioDao().Create(usuario);
                 }
                 return false;
@@ -139,7 +142,11 @@ namespace PontoMap.BOs
             try
             {
                 if (Util.ValidaObjeto(usuario))
+                {
+                    usuario.CdCpf = Util.RemoveNaoNumericos(usuario.CdCpf);
+                    usuario.DsCelular = Util.RemoveNaoNumericos(usuario.DsCelular);
                     return new UsuarioDao().Update(usuario);
+                }
 
                 return false;
             }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using PontoMap.CustomValidations;
 
 namespace PontoMap.BOs
 {
@@ -15,8 +16,29 @@ namespace PontoMap.BOs
         {
             try
             {
-               
-                return new EmpresaDao().Create(empresa);
+                List<string> atributosParaValidar = new List<string>();
+                atributosParaValidar.Add(nameof(empresa.DsCnpj));
+                atributosParaValidar.Add(nameof(empresa.DsRazaoSocial));
+                atributosParaValidar.Add(nameof(empresa.NmFantasia));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.CdCpf));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.DsEmail));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.DsCelular));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.CdPassword));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.DtNascimento));
+                atributosParaValidar.Add(nameof(empresa.UsuarioAdmin.NmUsuario));
+
+                if (Util.ValidaAtributos(empresa, atributosParaValidar))
+                {
+                    empresa.DsCnpj = Util.RemoveNaoNumericos(empresa.DsCnpj);
+                    empresa.UsuarioAdmin.CdCpf = Util.RemoveNaoNumericos(empresa.UsuarioAdmin.CdCpf);
+                    empresa.UsuarioAdmin.DsCelular = Util.RemoveNaoNumericos(empresa.UsuarioAdmin.DsCelular);
+
+                    return new EmpresaDao().Create(empresa);
+                }
+
+                return false;
+
+
             }
             catch (SqlException sqlExc)
             {

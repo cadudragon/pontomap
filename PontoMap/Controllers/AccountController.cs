@@ -34,7 +34,6 @@ namespace PontoMap.Controllers
 
             if (usuarioLogado == null)
             {
-                //return RedirectToAction("Index", "Home");
                 ModelState.AddModelError(string.Empty, "Usuário e/ou senha incorreto(s).");
                 return View(usuario);
             }
@@ -44,10 +43,13 @@ namespace PontoMap.Controllers
             Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
             Session["IdUsuario"] = usuarioLogado.IdUsuario;
 
+            TempData["message"] = "Logado com sucesso!";
+
             if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master"))
-            {
                 return RedirectToAction("Index", "Empresa");
-            }
+
+            if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("admin"))
+                return RedirectToAction("Index", "Usuario");
 
             return RedirectToAction("Index", "Home");
         }
@@ -57,6 +59,7 @@ namespace PontoMap.Controllers
         {
             Session.Clear();
             FormsAuthentication.SignOut();
+            TempData["message"] = "Usuario deslogado com sucesso.";
             return RedirectToAction("Index", "Home");
         }
 
@@ -74,13 +77,13 @@ namespace PontoMap.Controllers
 
             new EmpresaBo().Create(empresa);
 
-            if(empresa.Status == 0)
+            if (empresa.Status == 0)
             {
                 ModelState.AddModelError(string.Empty, empresa.Mensagem);
                 return View(registrarObj);
             }
 
-            
+            TempData["message"] = "Parabens, você se cadastrou com sucesso. Utilize o formulário abaixo para entrar e começar.";
             return RedirectToAction("Login", "Account");
         }
     }

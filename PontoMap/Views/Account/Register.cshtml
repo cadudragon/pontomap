@@ -3,88 +3,120 @@
     ViewBag.Title = "Registrar";
 }
 
-<style>
-    .formContainer {
-        display: inline-block;
-    }
-
-    #containerRegister {
-        text-align: center;
-    }
-</style>
-
-
-<p>Ao se cadastrar você tem direito a cadastrar 2 funcionários para testar o Ponto Map por dois meses!</p>
+@Styles.Render("~/bundles/customCss")
 
 <div class="row">
+    <div class="main-login main-center">
+        <h3 class="text-center">Cadastre-se</h3>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-            {
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div id="containerRegister">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.AntiForgeryToken()
-            <div class="formContainer">
-                <h4>Forneça os dos dados da empresa.</h4>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Empresa.DsCnpj)
-                    @Html.TextBoxFor(m => m.Empresa.DsCnpj, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Empresa.DsCnpj, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Empresa.NmFantasia)
-                    @Html.TextBoxFor(m => m.Empresa.NmFantasia, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Empresa.NmFantasia, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Empresa.DsRazaoSocial)
-                    @Html.TextBoxFor(m => m.Empresa.DsRazaoSocial, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Empresa.DsRazaoSocial, "", new { @class = "text-danger" })
-                </div>
-  
-                <hr />
-                <h4>Forneça os dados do responsável.</h4>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Usuario.NmUsuario)
-                    @Html.TextBoxFor(m => m.Usuario.NmUsuario, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Usuario.NmUsuario, "", new { @class = "text-danger" })
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Usuario.DtNascimento)
-                    @Html.TextBoxFor(m => m.Usuario.DtNascimento, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Usuario.DtNascimento, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Empresa.DsCnpj)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Empresa.DsCnpj, new { @class = "form-control cnpj" })
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Usuario.DsEmail)
-                    @Html.TextBoxFor(m => m.Usuario.DsEmail, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Usuario.DsEmail, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Usuario.CdCpf)
-                    @Html.TextBoxFor(m => m.Usuario.CdCpf, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Usuario.CdCpf, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Usuario.DsCelular)
-                    @Html.TextBoxFor(m => m.Usuario.DsCelular, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Usuario.DsCelular, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                </div>
+                @Html.ValidationMessageFor(m => m.Empresa.DsCnpj, "", new { @class = "text-danger text-center col-md-12" })
             </div>
-            <br />
-            <input type="submit" value="Registrar" class="btn btn-default" />
-        </div>
-    }
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Empresa.NmFantasia)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-registered" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Empresa.NmFantasia, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Empresa.NmFantasia, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Empresa.DsRazaoSocial)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-registered" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Empresa.DsRazaoSocial, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Empresa.DsRazaoSocial, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <hr />
+            <br /><h4 class="text-center">Dados do responsável.</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Usuario.NmUsuario)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Usuario.NmUsuario, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Usuario.NmUsuario, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Usuario.DtNascimento)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Usuario.DtNascimento, new {@class = "form-control data"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Usuario.DtNascimento, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Usuario.DsEmail)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Usuario.DsEmail, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Usuario.DsEmail, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Usuario.CdCpf)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-asterisk" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Usuario.CdCpf, new {@class = "form-control cpf"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Usuario.CdCpf, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Usuario.DsCelular)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                    @Html.TextBoxFor(m => m.Usuario.DsCelular, new {@class = "form-control cel"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Usuario.DsCelular, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    @Html.PasswordFor(m => m.Password, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword)
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control"})
+                </div>
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger text-center col-md-12" })
+            </div>
+ 
+            <div class="form-group text-center">
+                <input type="submit" value="Registrar" class="btn btn-primary btn-lg btn-block login-button center-block" />
+            </div>
+
+        }
+    </div>
+
 </div>
 
 

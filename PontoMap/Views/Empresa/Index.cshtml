@@ -25,6 +25,12 @@
     var grid = new WebGrid(source: Model, canSort: true);
 }
 
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">@TempData["message"]</div>
+}
+
 <div class="gridContainer">
     
     @if (Model == null)
