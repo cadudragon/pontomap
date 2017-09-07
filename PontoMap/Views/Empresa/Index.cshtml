@@ -24,13 +24,6 @@
     ViewBag.Title = "WebGrid Example";
     var grid = new WebGrid(source: Model, canSort: true);
 }
-
-
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success">@TempData["message"]</div>
-}
-
 <div class="gridContainer">
     
     @if (Model == null)
@@ -42,18 +35,8 @@
         headerStyle: "thead-inverse",
         columns:
             grid.Columns(
-                grid.Column(columnName: "Deletar", header: "Deletar", format:
-                    @<button type="button" class="btn btn-default btn-sm btn btn-danger" onclick="editarEmpresa(@item.IdEmpresa)" data-toggle="modal" data-target="#empresaModal">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Deletar
-                    </button>
-                    ),
                 grid.Column(columnName: "DsCnpj", header: "CNPJ", format: @<text>@item.DsCnpj</text>),
-                grid.Column(columnName: "DsRazaoSocial", header: "RAZÃO SOCIAL", format: @<text>@item.DsRazaoSocial</text>),
-                grid.Column(columnName: "Editar", header: "Editar", format:
-                    @<button type="button" class="btn btn-default btn-sm btn btn-warning" onclick="editarDeletar(@item.IdEmpresa)" data-toggle="modal" data-target="#empresaModal">
-                        <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
-                    </button>
-                    )
+                grid.Column(columnName: "DsRazaoSocial", header: "RAZÃO SOCIAL", format: @<text>@item.DsRazaoSocial</text>)
                 ))
 </div>
 

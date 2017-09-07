@@ -108,15 +108,23 @@
         VMasker($('.cel')).maskPattern('(99) 999999999');
         VMasker($('.cnpj')).maskPattern('99.999.999/9999-99');
 
+        var message = "@TempData["message"]";
+
+        if (message !== "" ){
         $.notify({
-                // options
-                message: 'Hello World'
-            },
+            // options
+            message: '@TempData["message"]'
+        },
             {
                 // settings
-                type: 'success'
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+                delay: 500
             });
-
+}
 
 
 
