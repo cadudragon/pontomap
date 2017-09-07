@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PontoMap.CustomValidations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,7 +24,7 @@ namespace PontoMap.Api
         [Route("api/data/autenticado")]
         public IHttpActionResult autenticado()
         {
-            return Ok("Krai de asa, Now server time is: " + DateTime.Now);
+            return Ok("Krai de asa, Now server time is: " + Util.HrBrasilia());
         }
     }
 }

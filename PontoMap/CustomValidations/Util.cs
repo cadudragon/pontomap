@@ -164,5 +164,13 @@ namespace PontoMap.CustomValidations
             }
             return valueIfNotConverted;
         }
+
+
+        public static DateTime HrBrasilia()
+        {
+            DateTime dateTime = DateTime.UtcNow;
+            TimeZoneInfo hrBrasilia = TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");
+            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, hrBrasilia);
+        }
     }
 }

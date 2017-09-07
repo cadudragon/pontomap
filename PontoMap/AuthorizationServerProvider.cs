@@ -32,9 +32,9 @@ namespace PontoMap
         {
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             Usuario user = new Usuario { CdPassword = context.Password, DsEmail = context.UserName };
-            new UsuarioBo().Login(user);
+            user = new UsuarioBo().Login(user);
 
-            if (user.Status == 1)
+            if (user != null)
             {
 
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
