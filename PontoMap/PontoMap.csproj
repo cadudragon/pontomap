@@ -184,6 +184,7 @@
     <Compile Include="AuthorizationServerProvider.cs" />
     <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="BOs\EmpresaBo.cs" />
+    <Compile Include="BOs\PontoBo.cs" />
     <Compile Include="BOs\UsuarioBo.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EmpresaController.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="DAOs\BaseDao.cs" />
     <Compile Include="DAOs\EmpresaDao.cs" />
     <Compile Include="DAOs\PerfilDao.cs" />
+    <Compile Include="DAOs\PontoDao.cs" />
     <Compile Include="DAOs\UsuarioDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

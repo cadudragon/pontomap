@@ -7,6 +7,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace PontoMap
 {
@@ -38,7 +40,7 @@ namespace PontoMap
             {
 
                 identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
-                identity.AddClaim(new Claim("username", user.NmUsuario));
+                identity.AddClaim(new Claim("credencial", new JavaScriptSerializer().Serialize(user)));
                 identity.AddClaim(new Claim(ClaimTypes.Name, "user name"));
                 await Task.FromResult(context.Validated(identity));
             }

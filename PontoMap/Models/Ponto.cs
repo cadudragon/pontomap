@@ -6,11 +6,11 @@ using System.Web;
 
 namespace PontoMap.Models
 {
-    public class Ponto
+    public class Ponto : BaseModel
     {
         [Range(1, Int32.MaxValue)]
         [Required(ErrorMessage = "Informe a empresa do Funcionário")]
-        public int Idusuario { get; set; }
+        public int IdUsuario { get; set; }
 
         [Range(1, Int32.MaxValue)]
         [Required(ErrorMessage = "Informe a empresa do Funcionário")]
@@ -21,11 +21,9 @@ namespace PontoMap.Models
         public DateTime DtRegistro { get; set; }
 
 
-        [Range(1.0, Double.MaxValue)]
         [Required(ErrorMessage = "Latitude Obrigatória")]
         public decimal CdLat { get; set; }
 
-        [Range(1.0, Double.MaxValue)]
         [Required(ErrorMessage = "Latitude Obrigatória")]
         public decimal CdLng { get; set; }
 
