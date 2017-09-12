@@ -58,7 +58,7 @@ namespace PontoMap.DAOs
             DynamicParameters parametros = new DynamicParameters();
             parametros.Add("@Idusuario", ponto.IdUsuario, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@AbsoluteStart", Util.AbsoluteStart(Util.HrBrasilia()), DbType.Date, ParameterDirection.Input);
-            parametros.Add("@AbsoluteEnd", Util.AbsoluteStart(Util.HrBrasilia()), DbType.Date, ParameterDirection.Input);
+            parametros.Add("@AbsoluteEnd", Util.AbsoluteEnd(Util.HrBrasilia()), DbType.Date, ParameterDirection.Input);
 
             ponto.Status = 1;
             return Query<Ponto>(strSql.ToString(), parametros);

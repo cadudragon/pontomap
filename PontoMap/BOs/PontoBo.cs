@@ -39,9 +39,16 @@ namespace PontoMap.BOs
             throw new NotImplementedException();
         }
 
-        public List<Ponto> Read(Ponto obj)
+        public List<Ponto> Read(Ponto ponto)
         {
-            throw new NotImplementedException();
+            List<string> atributosParaValidar = new List<string>();
+            atributosParaValidar.Add(nameof(ponto.IdUsuario));
+            atributosParaValidar.Add(nameof(ponto.IdEmpresa));
+            if (Util.ValidaAtributos(ponto, atributosParaValidar))
+            {
+                return new PontoDao().Read(ponto);
+            }
+            return null;
         }
 
         public bool Update(Ponto obj)

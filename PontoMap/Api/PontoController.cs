@@ -64,15 +64,26 @@ namespace PontoMap.Api
 
         [Authorize]
         [HttpGet]
-        [Route("api/data/autenticado")]
+        [Route("api/ponto/GetPontoList")]
         public IHttpActionResult GetPontoList()
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var roles = identity.Claims.Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => c.Value);
-            Usuario user = new Usuario { IdUsuario = int.Parse(identity.FindFirst("IdUsuario").Value) };
 
-            return Ok("Krai de asa, Now server time is: " + Util.HrBrasilia());
+            var identity = (ClaimsIdentity)User.Identity;
+            dynamic obj = new JavaScriptSerializer().DeserializeObject(identity.FindFirst("credencial").Value);
+
+
+            Ponto ponto = new Ponto
+            {
+                IdUsuario = int.Parse(obj["IdUsuario"].ToString()),
+                IdEmpresa = int.Parse(obj["IdEmpresa"].ToString())
+            };
+
+            List<Ponto> registrosPonto =  new PontoBo().Read(ponto);
+
+            if (ponto.Status == 1)
+                return Ok(JsonConvert.SerializeObject(registrosPonto));
+
+            return BadRequest(JsonConvert.SerializeObject(ponto));
         }
 
 
