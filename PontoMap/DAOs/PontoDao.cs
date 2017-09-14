@@ -46,9 +46,7 @@ namespace PontoMap.DAOs
 
         public List<Ponto> Read(Ponto ponto)
         {
-            strSql.Append("SELECT [Idusuario]");
-            strSql.Append("		,[IdEmpresa]");
-            strSql.Append("		,[DtRegistro]");
+            strSql.Append("SELECT [DtRegistro]");
             strSql.Append("		,[CdLat]");
             strSql.Append("		,[CdLng]");
             strSql.Append("	FROM [dbo].[Ponto]");
