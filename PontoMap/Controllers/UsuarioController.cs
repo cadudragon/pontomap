@@ -7,6 +7,7 @@ using PontoMap.BOs;
 using PontoMap.CustomValidations;
 using PontoMap.DAOs;
 using PontoMap.Models;
+using PontoMap.ViewModel;
 
 namespace PontoMap.Controllers
 {
@@ -57,12 +58,7 @@ namespace PontoMap.Controllers
             if (idUsuario == null)
                 return RedirectToAction("Index", "Usuario");
 
-
-
             Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = (int)idUsuario };
-
-
-
 
             usuario = new UsuarioBo().Get(usuario);
             return View(usuario);
@@ -95,6 +91,24 @@ namespace PontoMap.Controllers
             new UsuarioBo().Delete(new Usuario { IdUsuario = idUsuario, IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
             return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize(Roles = "relatorios")]
+        public ActionResult Relatorios(int? idUsuario)
+        {
+
+            if (idUsuario == null)
+                return RedirectToAction("Index", "Usuario");
+
+            Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = (int)idUsuario };
+
+            usuario = new UsuarioBo().Get(usuario);
+            RelatorioPontoViewModel rel =  new RelatorioPontoViewModel();
+            rel.Usuario = usuario;
+            return View(rel);
+
+        }
+
+
 
 
 

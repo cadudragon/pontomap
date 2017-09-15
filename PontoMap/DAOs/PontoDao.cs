@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -60,7 +61,25 @@ namespace PontoMap.DAOs
 
             ponto.Status = 1;
             return Query<Ponto>(strSql.ToString(), parametros);
-            throw new NotImplementedException();
+        }
+
+        public List<Ponto> RelatorioPonto(Ponto ponto, DateTime dtInicio, DateTime dtFim)
+        {
+            strSql.Append("SELECT DtRegistro");
+            strSql.Append("		,CdLat");
+            strSql.Append("		,CdLng");
+            strSql.Append("	FROM Ponto");
+            strSql.Append("  WHERE Idusuario =  @Idusuario AND");
+            strSql.Append("   IdEmpresa =  @IdEmpresa AND");
+            strSql.Append(" DtRegistro BETWEEN @dtInicio AND @dtFim");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@Idusuario", ponto.IdUsuario, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@IdEmpresa", ponto.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@dtInicio", dtInicio, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@dtFim", dtFim, DbType.Date, ParameterDirection.Input);
+
+            return Query<Ponto>(strSql.ToString(), parametros);
         }
 
         public bool Delete(Ponto ponto)

@@ -60,6 +60,15 @@ namespace PontoMap.DAOs
             return new SqlConnection(dbConnectionString);
         }
 
+        //public IEnumerable<T> Query<T>(Func<T> typeBuilder, string sql, object parameters = null)
+        //{
+        //    using (var connection = CreateConnection())
+        //    {
+        //        connection.Open();
+        //        return connection.Query<T>(sql, parameters);
+        //    }
+        //}
+
 
     }
 }

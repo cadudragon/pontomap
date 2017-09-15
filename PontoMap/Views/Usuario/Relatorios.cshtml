@@ -1,0 +1,10 @@
+﻿@model PontoMap.ViewModel.RelatorioPontoViewModel
+
+@{
+    ViewBag.Title = "Relatorios";
+}
+
+<h2>Relatorios</h2>
+
+@Html.EnumDropDownListFor(m => m.TipoRelatorio, new { @class = "form-control" })
+
