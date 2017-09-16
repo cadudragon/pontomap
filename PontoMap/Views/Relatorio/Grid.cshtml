@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "";
+}
+
+@{
+    var grid = new WebGrid(source: Model, canSort: true);
+}
+
+
+
+<div class="gridContainer">
+
+    @if (Model == null)
+    {
+        return;
+    }
+
+
+    @grid.GetHtml(
+        tableStyle: "table",
+        headerStyle: "thead-inverse",
+        columns:
+            grid.Columns(
+                grid.Column(columnName: "DtRegistroString", header: "REGISTRO", format: @<text>@item.DtRegistroString</text>),
+                grid.Column(columnName: "CdLat", header: "LATITUDE", format: @<text>@item.CdLat</text>),
+                grid.Column(columnName: "CdLng", header: "LONGITUDE", format: @<text>@item.CdLng</text>)
+                )
+
+        )
+</div>

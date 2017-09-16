@@ -4,7 +4,83 @@
     ViewBag.Title = "Relatorios";
 }
 
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+
+    .col-centered {
+        float: none;
+        margin: 0 auto;
+    }
+</style>
+
 <h2>Relatorios</h2>
 
-@Html.EnumDropDownListFor(m => m.TipoRelatorio, new { @class = "form-control" })
+@*@Html.EnumDropDownListFor(m => m.TipoRelatorio, new { @class = "form-control" })*@
+<div class="row">
+    <div class="col-sm-3 form-inline">
+        <label for="selectTipoRelatorio">Tipo de Relatório</label>
+        <div class="input-group">
+            <select id="selectTipoRelatorio" class="form-control form-control-sm">
+                <option value="0" selected disabled>SELECIONE</option>
+                <option value="grid">GRID</option>
+                <option value="mapa">MAPA</option>
+                <option value="pfd">PDF</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-3  form-inline">
+        <label for="dtInicial">Data Inicial</label>
+        <div class="input-group">
+            <input id="dtInicial" type="text" class="data form-control" size="6" />
+        </div>
+    </div>
 
+    <div class="col-sm-3  form-inline">
+        <label for="dtInicial">Data Final</label>
+        <div class="input-group">
+            <input id="dtFinal" type="text" class="data form-control" size="6" />
+        </div>
+    </div>
+
+    <div class="col-sm-1  form-inline">
+        <div class="input-group">
+            <button type="button" class="btn btn-info" onclick="gerarRelatorio()"><i class="fa fa-search-plus" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+
+<div id="relContent"></div>
+
+<script>
+    function gerarRelatorio() {
+        var tipoRel, dtInicial, dtFinal;
+        tipoRel = $("#selectTipoRelatorio").val();
+        dtInicial = $("#dtInicial").val();
+        dtFinal = $("#dtFinal").val();
+
+        var data = JSON.stringify({
+            'tipoRel': tipoRel,
+            'dtInicial': dtInicial,
+            'dtFinal': dtFinal,
+            'idUsuario':@Model.Usuario.IdUsuario
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetRel", "Relatorio")',
+            data: data,
+            contentType: "application/json",
+            dataType: "html",
+            success: function (response) {
+                console.log("resp: " + response)
+                $('#relContent').html(response);
+            },
+            failure: function (response) {
+                alert(response.d);
+            }
+        });
+
+    }
+</script>

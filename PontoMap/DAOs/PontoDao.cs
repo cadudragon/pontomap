@@ -77,8 +77,10 @@ namespace PontoMap.DAOs
             parametros.Add("@Idusuario", ponto.IdUsuario, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@IdEmpresa", ponto.IdEmpresa, DbType.Int32, ParameterDirection.Input);
             parametros.Add("@dtInicio", dtInicio, DbType.Date, ParameterDirection.Input);
-            parametros.Add("@dtFim", dtFim, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@dtFim", dtFim.Date.AddHours(23).AddMinutes(59).AddSeconds(59), DbType.Date, ParameterDirection.Input);
 
+
+            ponto.Status = 1;
             return Query<Ponto>(strSql.ToString(), parametros);
         }
 
