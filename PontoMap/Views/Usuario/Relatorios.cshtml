@@ -55,10 +55,10 @@
 
 <script>
     function gerarRelatorio() {
-        var tipoRel, dtInicial, dtFinal;
-        tipoRel = $("#selectTipoRelatorio").val();
-        dtInicial = $("#dtInicial").val();
-        dtFinal = $("#dtFinal").val();
+
+       var tipoRel = $("#selectTipoRelatorio").val();
+       var dtInicial = $("#dtInicial").val();
+       var dtFinal = $("#dtFinal").val();
 
         var data = JSON.stringify({
             'tipoRel': tipoRel,
