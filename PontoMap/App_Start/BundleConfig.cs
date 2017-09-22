@@ -29,12 +29,36 @@ namespace PontoMap
             "~/Scripts/vanilla-masker.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap.css"
+                      , "~/Content/site.css"
+                     ));
 
 
             bundles.Add(new StyleBundle("~/bundles/customCss").Include(
                 "~/Content/formulario.css"));
+            
+            //Css e js do tema ===================
+            bundles.Add(new StyleBundle("~/bundles/nineStarsCss").Include(
+                "~/Content/Ninestars/css/bootstrap.min.css",
+                "~/Content/Ninestars/font-awesome/css/font-awesome.min.css",
+                "~/Content/Ninestars/css/nivo-lightbox.css",
+                "~/Content/Ninestars/css/nivo-lightbox-theme/default/default.css",
+                "~/Content/Ninestars/css/animate.css",
+                "~/Content/Ninestars/css/style.css",
+                "~/Content/Ninestars/color/default.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/nineStarsJs").Include(
+                "~/Content/Ninestars/js/jquery.easing.min.js",
+                "~/Content/Ninestars/js/classie.js",
+                "~/Content/Ninestars/js/gnmenu.js",
+                "~/Content/Ninestars/js/jquery.scrollTo.js",
+                "~/Content/Ninestars/js/nivo-lightbox.min.js",
+                "~/Content/Ninestars/js/stellar.js",
+                "~/Content/Ninestars/js/custom.js"
+                ));
+
+
         }
     }
 }

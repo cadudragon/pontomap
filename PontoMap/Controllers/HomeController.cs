@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PontoMap.BOs;
+using PontoMap.ViewModel;
 
 namespace PontoMap.Controllers
 {
@@ -14,20 +16,6 @@ namespace PontoMap.Controllers
         public ActionResult Index()
         {
             
-            return View();
-        }
-        
-        public ActionResult About()
-        {
-            ViewBag.Message = "Nos adequamos ao seu sistema atual!";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Página de contato.";
-
             return View();
         }
     }

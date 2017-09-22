@@ -1,116 +1,90 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>@ViewBag.Title - Registro de Ponto Remoto</title>
 
-    <style>
-        body {
-            background-color: lightgray;
-        }
-
-        .row {
-            height: 100%;
-        }
-    </style>
+    @Styles.Render("~/bundles/nineStarsCss")
+    @Styles.Render("~/bundles/customCss")
 
 </head>
-<body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body data-spy="scroll">
+
+    <div class="container">
+        <ul id="gn-menu" class="gn-menu-main">
+            <li class="gn-trigger">
+                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <nav class="gn-menu-wrapper">
+                    <div class="gn-scroller">
+                        <ul class="gn-menu">
+                            <li class="gn-search-item">
+                                <input placeholder="Search" type="search" class="gn-search">
+                                <a class="gn-icon gn-icon-search"><span>Search</span></a>
+                            </li>
+                            <li>
+                                <a href="#about" class="gn-icon gn-icon-download">Sobre</a>
+                            </li>
+                            <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                            <li><a href="#works" class="gn-icon gn-icon-help">Trabalhos</a></li>
+                            <li>
+                                <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
+                            </li>
+                        </ul>
+                    </div><!-- /gn-scroller -->
+                </nav>
+            </li>
+            <li>@Html.ActionLink("PONTOMAP", "Index", "Home")</li>
+            <li class="hidden-xs">
+                <ul class="company-social">
+                    <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+                    <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    @RenderBody()
+
+
+    <footer>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Ponto Map", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
-
-                    @if (Request.IsAuthenticated && User.IsInRole("master"))
-                    {
-                        <li>@Html.ActionLink("Empresas", "index", "Empresa")</li>
-                    }
-
-                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
-                    {
-                        <li>@Html.ActionLink("Usuários", "index", "Usuario")</li>
-                    }
-
-
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Sair", "LogOut", "Account")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Registrar", "Register", "Account")</li>
-                        <li>@Html.ActionLink("Logar", "Login", "Account")</li>
-                    }
-                </ul>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <p>&copy; Ponto Map - Brasil</p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </footer>
 
-        <ul class="breadcrumb">
-
-
-            @Html.ActionLink("Home", "Index", "Home")
-            @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
-            {
-                @:/ @Html.ActionLink(ViewContext.RouteData.Values["controller"].ToString(), "Index", ViewContext.RouteData.Values["controller"].ToString())
-            }
-            @if (ViewContext.RouteData.Values["action"].ToString() != "Index")
-            {
-                @:/ @Html.ActionLink(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString())
-            }
-        </ul>
-
-        @if (Session["Nome"] != null)
-        {
-            <p>
-                <strong> Logado:</strong> @Session["Nome"]
-            </p><br />
-        }
-
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Ponto map</p>
-        </footer>
-    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/customScripts")
-    @Scripts.Render("~/bundles/customScripts")
+    @Scripts.Render("~/bundles/nineStarsJs")
     @RenderSection("scripts", required: false)
+</body>
 
-    <script>
-        //mascasras
-        VMasker($('.data')).maskPattern('99/99/9999');
-        VMasker($('.cpf')).maskPattern('999.999.999-99');
-        VMasker($('.cel')).maskPattern('(99) 999999999');
-        VMasker($('.cnpj')).maskPattern('99.999.999/9999-99');
+</html>
 
-        var message = "@TempData["message"]";
+<script>
+    //mascasras
+    VMasker($('.data')).maskPattern('99/99/9999');
+    VMasker($('.cpf')).maskPattern('999.999.999-99');
+    VMasker($('.cel')).maskPattern('(99) 999999999');
+    VMasker($('.cnpj')).maskPattern('99.999.999/9999-99');
 
-        if (message !== "" ){
+    var message = "@TempData["message"]";
+
+    if (message !== "") {
         $.notify({
             // options
             message: '@TempData["message"]'
@@ -124,28 +98,21 @@
                 },
                 delay: 500
             });
-}
+    }
+
+    $.validator.addMethod("customvalidationcpf",
+        function (value, element, param) {
+            return validaCPF(value); //chama um método validaCPF implementado em javascript
+        });
+    $.validator.unobtrusive.adapters.addBool("customvalidationcpf");
+
+
+    $.validator.addMethod("customvalidationcnpj",
+        function (value, element, param) {
+            return validaCNPJ(value); //chama um método validaCNPJ implementado em javascript
+        });
+    $.validator.unobtrusive.adapters.addBool("customvalidationcnpj");
+</script>
 
 
 
-
-        $.validator.addMethod("customvalidationcpf",
-            function (value, element, param) {
-                return validaCPF(value); //chama um método validaCPF implementado em javascript
-            });
-        $.validator.unobtrusive.adapters.addBool("customvalidationcpf");
-
-
-        $.validator.addMethod("customvalidationcnpj",
-            function (value, element, param) {
-                return validaCNPJ(value); //chama um método validaCNPJ implementado em javascript
-            });
-        $.validator.unobtrusive.adapters.addBool("customvalidationcnpj");
-
-
-    </script>
-
-
-
-</body>
-</html>

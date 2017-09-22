@@ -5,8 +5,8 @@
 }
 
 @Styles.Render("~/bundles/customCss")
-<div class="row">
-    
+<div class="row" style="background-color: #e4e4e4; padding: 150px 0;">
+
 
 
     <div class="main-login main-center">
@@ -14,7 +14,7 @@
 
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
-            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.AntiForgeryToken()
 
 
@@ -22,25 +22,27 @@
                 @Html.LabelFor(m => m.DsEmail)
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                    @Html.TextBoxFor(m => m.DsEmail, new {@class = "form-control", Value = "guerreiro@gmail.com"})
+                    @Html.TextBoxFor(m => m.DsEmail, new { @class = "form-control", Value = "guerreiro@gmail.com" })
                 </div>
-                @Html.ValidationMessageFor(m => m.DsEmail, "", new {@class = "text-danger text-center col-md-12"})
+                @Html.ValidationMessageFor(m => m.DsEmail, "", new { @class = "text-danger text-center col-md-12" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.CdPassword)
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
-                    @Html.PasswordFor(m => m.CdPassword, new {@class = "form-control", Value = "guerreiro"})
+                    @Html.PasswordFor(m => m.CdPassword, new { @class = "form-control", Value = "guerreiro" })
                 </div>
-                @Html.ValidationMessageFor(m => m.CdPassword, "", new {@class = "text-danger text-center col-md-12"})
+                @Html.ValidationMessageFor(m => m.CdPassword, "", new { @class = "text-danger text-center col-md-12" })
             </div>
 
             <div class="form-group text-center">
-                <input type="submit" value="Logar" class="btn btn-primary btn-lg btn-block login-button center-block"/>
+                <input type="submit" value="Logar" class="btn btn-primary btn-lg btn-block login-button center-block" />
+                <span class="label label-danger text-left">@Html.ActionLink("Voltar", "Index", "Home")</span>
             </div>
         }
     </div>
+
 
 
 </div>
