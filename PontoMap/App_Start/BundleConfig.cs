@@ -40,7 +40,7 @@ namespace PontoMap
             //Css e js do tema ===================
             bundles.Add(new StyleBundle("~/bundles/nineStarsCss").Include(
                 "~/Content/Ninestars/css/bootstrap.min.css",
-                "~/Content/Ninestars/font-awesome/css/font-awesome.min.css",
+                //"~/Content/Ninestars/font-awesome/css/font-awesome.min.css",
                 "~/Content/Ninestars/css/nivo-lightbox.css",
                 "~/Content/Ninestars/css/nivo-lightbox-theme/default/default.css",
                 "~/Content/Ninestars/css/animate.css",

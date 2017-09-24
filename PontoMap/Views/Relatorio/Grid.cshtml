@@ -1,9 +1,14 @@
-﻿@{
+﻿<style>
+
+</style>
+
+
+@{
     Layout = "";
 }
 
 @{
-    var grid = new WebGrid(source: Model, canSort: true);
+    var grid = new WebGrid(source: Model, canSort: false);
 }
 
 <div class="gridContainer">
@@ -17,11 +22,12 @@
     @grid.GetHtml(
         tableStyle: "table",
         headerStyle: "thead-inverse",
+        htmlAttributes: new { id = "webGrid" },
         columns:
             grid.Columns(
-                grid.Column(columnName: "DtRegistroString", header: "REGISTRO", format: @<text>@item.DtRegistroString</text>),
+                grid.Column(columnName: "DtRegistroString", header: "DATA", format: @<text>@item.DtRegistroString.Remove(0, 11)</text>),
+                grid.Column(columnName: "DtRegistroString", header: "HORA", format: @<text>@item.DtRegistroString.Remove(item.DtRegistroString.Length - 12)</text>),
                 grid.Column(columnName: "endereço", header: "ENDEREÇO", format:
-                    @*@<a href="https://www.google.com.br/maps/@Html.Raw("@")@item.CdLat.ToString().Replace(",", "."), @item.CdLng.ToString().Replace(",", "."),15z"*@
                     @<a href="http://maps.google.com/?q=@item.CdLat.ToString().Replace(",", "."),@item.CdLng.ToString().Replace(",", ".")"
                         onclick="PopupCenter(this.href, 'Endereço', 900, 500)"
                         target="_blank">
@@ -38,32 +44,28 @@
 
 
 <script>
-    var geocoder;
 
-    function initMap() {
-        geocoder = new google.maps.Geocoder;
-
-        $(".latLngSpan").each(function () {
-            $(this).text(geocodeLatLng($(this)));
-        });
-
-    }
-
-    function geocodeLatLng(latLang) {
-        var input = latLang.html();
-        var latlngStr = input.toString().split(',') ;
-        var latlng = { lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1]) };
-        geocoder.geocode({ 'location': latlng }, function (results, status) {
-            if (status === 'OK') {
-                if (results[1]) {
-                    latLang.html(results[1].formatted_address);
+    function geocodeLatLng(latLang, delay) {
+        setTimeout(function () {
+            var input = latLang.html();
+            var latlngStr = input.toString().split(',');
+            var latlng = { lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1]) };
+            geocoder.geocode({ 'location': latlng }, function (results, status) {
+                if (status === 'OK') {
+                    if (results[1]) {
+                        latLang.html(results[1].formatted_address);
+                    } else {
+                        latLang.html(latLang);
+                        
+                    }
                 } else {
-                    latLang.html(latLang);
+
+                    geocodeLatLng(latLang, delay + 10);
+                    console.log('cuidado krai de asa')
                 }
-            } else {
-                latLang.html(latLang);
-            }
-        });
+            });
+
+        }, delay);
     }
 
 
@@ -82,8 +84,10 @@
             newWindow.focus();
         }
     }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAedrqfxnFQb4nSFF4EkRXi60sZ00774fI&callback=initMap">
-</script>
 
+    var iterator = 0;
+    $(".latLngSpan").each(function () {
+        $(this).text(geocodeLatLng($(this), 500 * iterator));
+        iterator = iterator + 1;
+    });
+</script>
