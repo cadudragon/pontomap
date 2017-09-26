@@ -32,6 +32,7 @@ namespace PontoMap.Controllers
             return View();
         }
 
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]

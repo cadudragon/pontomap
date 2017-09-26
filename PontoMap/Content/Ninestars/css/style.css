@@ -14,7 +14,8 @@ body {
     font-family: 'Lato',sans-serif;
 	font-weight: 300;
     color: #666;
-    background-color: #fff;
+    background-color: #e4e4e4;
+
 }
 
 html {
@@ -135,8 +136,21 @@ hr {
 		src: url("../fonts/ecoicons/ecoicons.eot?#iefix") format("embedded-opentype"), url("../fonts/ecoicons/ecoicons.woff") format("woff"), url("../fonts/ecoicons/ecoicons.ttf") format("truetype"), url("../fonts/ecoicons/ecoicons.svg#ecoicons") format("svg");
 }
 
+
+#adminBar {
+    margin: 0;
+    background: #fff;
+    color: #3A539B;
+    padding: 80px 0 18px 140px;
+    border-top: 1px solid #c6d0da;
+}
+
+#breadcrumbs > a {
+    display: inline; 
+}
+
 .gn-menu-main,
-.gn-menu-main ul {
+.gn-menu-main ul{
 		margin: 0;
 		padding: 0;
 		background: #fff;
@@ -387,6 +401,23 @@ input.gn-search:focus {
 .gn-icon-videos::before {
 		content: "\e009"
 }
+
+
+.gn-icon-about::before {
+    font-family: FontAwesome;
+    content: "\f118";
+}
+
+.gn-icon-login::before {
+    font-family: FontAwesome;
+    content: "\f090";
+}
+
+.gn-icon-signup::before {
+    font-family: FontAwesome;
+    content: "\f007";
+}
+
 
 /* if an icon anchor has a span, hide the span */
 
