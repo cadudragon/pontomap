@@ -11,7 +11,7 @@ namespace PontoMap.Controllers
     public class EmpresaController : Controller
     {
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         public ActionResult Index()
         {
             List<Empresa> empresaList = new EmpresaDao().Read(new Empresa());
@@ -19,19 +19,19 @@ namespace PontoMap.Controllers
             return View(empresaList);
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         public ActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -47,13 +47,13 @@ namespace PontoMap.Controllers
             }
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -69,13 +69,13 @@ namespace PontoMap.Controllers
             }
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        [Authorize(Roles = "master")]
+        [CustomAuthorize(Roles = "master")]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

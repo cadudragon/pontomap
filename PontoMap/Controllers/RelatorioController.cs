@@ -13,7 +13,7 @@ namespace PontoMap.Controllers
     public class RelatorioController : Controller
     {
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         [HttpPost]
         public ActionResult GetRel(DateTime dtInicial, DateTime dtFinal, string tipoRel, string idUsuario)
         {

@@ -14,7 +14,7 @@ namespace PontoMap.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult Index()
         {
             List<Usuario> usuarioList = new UsuarioBo().Read(new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
@@ -26,14 +26,14 @@ namespace PontoMap.Controllers
             return View(results.ToList());
         }
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Usuario usuario)
@@ -52,7 +52,7 @@ namespace PontoMap.Controllers
             return View(usuario);
         }
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult Edit(int? idUsuario)
         {
 
@@ -66,7 +66,7 @@ namespace PontoMap.Controllers
 
         }
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Edit(Usuario usuario)
         {
@@ -85,7 +85,7 @@ namespace PontoMap.Controllers
 
         }
 
-        [Authorize(Roles = "admin")]
+        [CustomAuthorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Delete(int idUsuario)
         {
@@ -93,7 +93,7 @@ namespace PontoMap.Controllers
             return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "relatorios")]
+        [CustomAuthorize(Roles = "admin")]
         public ActionResult Relatorios(int? idUsuario)
         {
 
@@ -108,10 +108,5 @@ namespace PontoMap.Controllers
             return View(rel);
 
         }
-
-
-
-
-
     }
 }

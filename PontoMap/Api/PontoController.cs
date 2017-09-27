@@ -26,7 +26,7 @@ namespace PontoMap.Api
             return Ok("Now server time is: " + DateTime.Now);
         }
 
-        [Authorize]
+        [CustomAuthorize]
         [HttpPost]
         [Route("api/ponto/RegistrarPonto")]
         public IHttpActionResult RegistrarPonto()
@@ -62,7 +62,7 @@ namespace PontoMap.Api
             return BadRequest(JsonConvert.SerializeObject(ponto));
         }
 
-        [Authorize]
+        [CustomAuthorize]
         [HttpGet]
         [Route("api/ponto/GetPontoList")]
         public IHttpActionResult GetPontoList()

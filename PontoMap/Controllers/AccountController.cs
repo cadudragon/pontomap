@@ -5,6 +5,7 @@ using PontoMap.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -13,7 +14,6 @@ namespace PontoMap.Controllers
 {
     public class AccountController : Controller
     {
-
         public ActionResult Index()
         {
             return RedirectToAction("Login");
@@ -27,7 +27,6 @@ namespace PontoMap.Controllers
 
         // POST: Account/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(Usuario usuario)
         {
             var usuarioLogado = new UsuarioBo().Login(usuario);
@@ -38,7 +37,17 @@ namespace PontoMap.Controllers
                 return View(usuario);
             }
 
-            FormsAuthentication.SetAuthCookie(usuarioLogado.DsEmail, false);
+            List<Perfil> perfilList = new PerfilDao().GetPerfisByEmail(new Usuario { DsEmail = usuario.DsEmail });
+            string[] perfis = perfilList.Select(x => x.DsPerfil).ToArray();
+            
+
+            var principle = new GenericPrincipal(new GenericIdentity($"{usuario.NmUsuario} {usuario.NmUsuario}"), perfis);
+            var ticket = new FormsAuthenticationTicket(1, principle.Identity.Name, DateTime.Now, DateTime.Now.AddMonths(30), true, string.Join(",", perfis));
+            var encryptedTicket = FormsAuthentication.Encrypt(ticket);
+
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            Response.SetCookie(cookie);
+
             Session["Nome"] = usuarioLogado.NmUsuario;
             Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
             Session["IdUsuario"] = usuarioLogado.IdUsuario;
@@ -54,7 +63,7 @@ namespace PontoMap.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
+        [CustomAuthorize]
         public ActionResult LogOut()
         {
             Session.Clear();
@@ -85,6 +94,12 @@ namespace PontoMap.Controllers
 
             TempData["message"] = "Parabens, você se cadastrou com sucesso. Utilize o formulário abaixo para entrar e começar.";
             return RedirectToAction("Login", "Account");
+        }
+
+
+        public ActionResult PaginaNaoAutorizada()
+        {
+            return View();
         }
     }
 }

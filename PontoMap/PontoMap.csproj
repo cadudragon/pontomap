@@ -182,7 +182,6 @@
     <Compile Include="App_Start\StartupOwin.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AuthorizationServerProvider.cs" />
-    <Compile Include="AuthorizeAttribute.cs" />
     <Compile Include="BOs\EmpresaBo.cs" />
     <Compile Include="BOs\PontoBo.cs" />
     <Compile Include="BOs\UsuarioBo.cs" />
@@ -204,6 +203,7 @@
     </Compile>
     <Compile Include="Iterfaces\ICrud.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\Empresa.cs" />
     <Compile Include="Models\RelacPerfilUsuario.cs" />
     <Compile Include="Models\Roles.cs" />
@@ -387,6 +387,7 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Relatorios.cshtml" />
     <Content Include="Views\Relatorio\Grid.cshtml" />
+    <Content Include="Views\Account\PaginaNaoAutorizada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
