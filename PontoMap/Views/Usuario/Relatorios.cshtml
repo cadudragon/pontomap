@@ -17,16 +17,15 @@
 
 <h2>Relatorios</h2>
 
-@*@Html.EnumDropDownListFor(m => m.TipoRelatorio, new { @class = "form-control" })*@
 <div class="row"  style="background-color: #e4e4e4; padding:80px 0 25px 0;">
     <div class="col-sm-3 form-inline">
         <label for="selectTipoRelatorio">Tipo de Relatório</label>
         <div class="input-group">
-            <select id="selectTipoRelatorio" class="form-control form-control-sm">
-                <option value="0" selected disabled>SELECIONE</option>
-                <option value="grid">GRID</option>
-                <option value="mapa">MAPA</option>
-                <option value="pfd">PDF</option>
+            <select id="selectTipoRelatorio" class="form-control form-control-sm" disabled>
+                @*<option value="0" selected disabled>SELECIONE</option>*@
+                <option value="grid" selected>GRID</option>
+                @*<option value="mapa">MAPA</option>
+                <option value="pfd">PDF</option>*@
             </select>
         </div>
     </div>
