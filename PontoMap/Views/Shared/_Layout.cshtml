@@ -33,28 +33,58 @@
                 <nav class="gn-menu-wrapper">
                     <div class="gn-scroller">
                         <ul class="gn-menu">
-                            @if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Home")
+                            @switch (Session["Role"] != null ? Session["Role"].ToString() : "")
                             {
-                                <li>
-                                    <a href="#about" class="gn-icon gn-icon-about"> Sobre</a>
-                                </li>
-                                <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
-                                <li><a href="#works" class="gn-icon gn-icon-help">Clientes</a></li>
-                                <li>
-                                    <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
-                                </li>
+                                case "user":
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                    </li>
+                                    <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                    <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                    </li>
+                                    break;
+                                case "master":
+                                    <li>
+                                        <a href="@Url.Action("Index", "Empresa")#about" class="gn-icon gn-icon-about"> Empresas</a>
+                                    </li>
+                                    break;
+                                case "admin":
+                                    <li>
+                                        <a href="@Url.Action("Index", "Usuario")#about" class="gn-icon gn-icon-about"> Usuários</a>
+                                    </li>
+                                    break;
+                                default:
+                                    if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Home")
+                                     {
+                                         <li>
+                                             <a href="#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                         </li>
+                                         <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                         <li><a href="#works" class="gn-icon gn-icon-help">Clientes</a></li>
+                                         <li>
+                                             <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                         </li>
+                                     }
+                                    break;
                             }
-                            else
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
-                                </li>
-                                <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
-                                <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
-                                <li>
-                                    <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
-                                </li>
-                            }
+
+
+                            @*else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                    </li>
+                                    <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                    <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
+                                    <li>
+                                        <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                    </li>
+                                }*@
+
+
+
                         </ul>
                     </div><!-- /gn-scroller -->
                 </nav>

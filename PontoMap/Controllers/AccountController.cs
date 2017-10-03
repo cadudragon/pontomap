@@ -39,7 +39,7 @@ namespace PontoMap.Controllers
 
             List<Perfil> perfilList = new PerfilDao().GetPerfisByEmail(new Usuario { DsEmail = usuario.DsEmail });
             string[] perfis = perfilList.Select(x => x.DsPerfil).ToArray();
-            
+
 
             var principle = new GenericPrincipal(new GenericIdentity($"{usuario.NmUsuario} {usuario.NmUsuario}"), perfis);
             var ticket = new FormsAuthenticationTicket(1, principle.Identity.Name, DateTime.Now, DateTime.Now.AddMonths(30), true, string.Join(",", perfis));
@@ -52,13 +52,22 @@ namespace PontoMap.Controllers
             Session["IdEmpresa"] = usuarioLogado.IdEmpresa;
             Session["IdUsuario"] = usuarioLogado.IdUsuario;
 
+            Session["Role"] = "authorize";
+
             TempData["message"] = "Logado com sucesso!";
 
             if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("master"))
+            {
+                Session["Role"] = "master";
                 return RedirectToAction("Index", "Empresa");
+            }
+
 
             if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("admin"))
+            {
+                Session["Role"] = "admin";
                 return RedirectToAction("Index", "Usuario");
+            }
 
             return RedirectToAction("Index", "Home");
         }
