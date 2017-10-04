@@ -55,15 +55,13 @@ namespace PontoMap.Controllers
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Edit(int? idUsuario)
         {
-
-            if (idUsuario == null)
-                return RedirectToAction("Index", "Usuario");
-
             Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = (int)idUsuario };
-
             usuario = new UsuarioBo().Get(usuario);
-            return View(usuario);
 
+            if (usuario != null)
+                return View(usuario);
+
+            return new HttpNotFoundResult("Usuario não encontrado");
         }
 
         [CustomAuthorize(Roles = "admin")]
@@ -96,17 +94,15 @@ namespace PontoMap.Controllers
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Relatorios(int? idUsuario)
         {
-
-            if (idUsuario == null)
-                return RedirectToAction("Index", "Usuario");
-
             Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = (int)idUsuario };
 
             usuario = new UsuarioBo().Get(usuario);
-            RelatorioPontoViewModel rel =  new RelatorioPontoViewModel();
+            if (usuario == null)
+                return new HttpNotFoundResult("Usuario não encontrado");
+
+            RelatorioPontoViewModel rel = new RelatorioPontoViewModel();
             rel.Usuario = usuario;
             return View(rel);
-
         }
     }
 }

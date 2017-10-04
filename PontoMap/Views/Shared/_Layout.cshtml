@@ -57,31 +57,32 @@
                                     break;
                                 default:
                                     if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Home")
-                                     {
-                                         <li>
-                                             <a href="#about" class="gn-icon gn-icon-about"> Sobre</a>
-                                         </li>
-                                         <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
-                                         <li><a href="#works" class="gn-icon gn-icon-help">Clientes</a></li>
-                                         <li>
-                                             <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
-                                         </li>
-                                     }
+                                    {
+                                        <li>
+                                            <a href="#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                        </li>
+                                        <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                        <li><a href="#works" class="gn-icon gn-icon-help">Clientes</a></li>
+                                        <li>
+                                            <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                        </li>
+                                        <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                        <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
+                                        <li>
+                                            <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                        </li>
+                                    }
                                     break;
                             }
 
 
-                            @*else
-                                {
-                                    <li>
-                                        <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
-                                    </li>
-                                    <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
-                                    <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
-                                    <li>
-                                        <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
-                                    </li>
-                                }*@
+                           
 
 
 
