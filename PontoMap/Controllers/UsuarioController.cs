@@ -91,6 +91,23 @@ namespace PontoMap.Controllers
             return Json(new { success = true, responseText = "Your message successfuly sent!" }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [CustomAuthorize(Roles = "funcionario")]
+        public ActionResult EspelhoPonto()
+        {
+            Usuario usuario = new Usuario { IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()), IdUsuario = int.Parse(Session["IdUsuario"].ToString())};
+
+            usuario = new UsuarioBo().Get(usuario);
+            if (usuario == null)
+                return new HttpNotFoundResult("Usuario não encontrado");
+
+            RelatorioPontoViewModel rel = new RelatorioPontoViewModel();
+            rel.Usuario = usuario;
+            return View(rel);
+        }
+
+
+
         [CustomAuthorize(Roles = "admin")]
         public ActionResult Relatorios(int? idUsuario)
         {

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using PontoMap.DAOs;
 
 namespace PontoMap
 {
@@ -39,9 +40,16 @@ namespace PontoMap
             if (user != null)
             {
 
-                identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+
+                List<Perfil> perfilList = new PerfilDao().GetPerfisByEmail(new Usuario { DsEmail = user.DsEmail });
+
+                foreach (Perfil perfil in perfilList)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, perfil.DsPerfil));
+                }
+              
                 identity.AddClaim(new Claim("credencial", new JavaScriptSerializer().Serialize(user)));
-                identity.AddClaim(new Claim(ClaimTypes.Name, "user name"));
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.NmUsuario));
                 await Task.FromResult(context.Validated(identity));
             }
             else

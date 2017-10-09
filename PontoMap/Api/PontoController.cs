@@ -78,7 +78,44 @@ namespace PontoMap.Api
                 IdEmpresa = int.Parse(obj["IdEmpresa"].ToString())
             };
 
-            List<Ponto> registrosPonto =  new PontoBo().Read(ponto);
+            List<Ponto> registrosPonto = new PontoBo().Read(ponto);
+
+            if (ponto.Status == 1)
+                return Ok(JsonConvert.SerializeObject(registrosPonto));
+
+            return BadRequest(JsonConvert.SerializeObject(ponto));
+        }
+
+
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        [Route("api/ponto/GetPontoListWs")]
+        public IHttpActionResult GetPontoListWs()
+        {
+
+            var identity = (ClaimsIdentity)User.Identity;
+            dynamic obj = new JavaScriptSerializer().DeserializeObject(identity.FindFirst("credencial").Value);
+
+
+            DateTime dtInicio;
+            DateTime dtFim;
+
+            try
+            {
+                dtInicio = DateTime.Parse(HttpContext.Current.Request.Params["dtInicio"]);
+                dtFim = DateTime.Parse(HttpContext.Current.Request.Params["dtFim"]);
+            }
+            catch (Exception)
+            {
+                return Content(HttpStatusCode.BadRequest, JsonConvert.SerializeObject("dtInicio e dtFim obrigatórios"));
+            }
+
+            var ponto = new Ponto
+            {
+                IdEmpresa = int.Parse(obj["IdEmpresa"].ToString())
+            };
+
+            List<Ponto> registrosPonto = new PontoBo().RelatorioPontoWs(ponto, dtInicio, dtFim);
 
             if (ponto.Status == 1)
                 return Ok(JsonConvert.SerializeObject(registrosPonto));

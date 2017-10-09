@@ -383,6 +383,7 @@
     <Content Include="Views\Usuario\Relatorios.cshtml" />
     <Content Include="Views\Relatorio\Grid.cshtml" />
     <Content Include="Views\Account\PaginaNaoAutorizada.cshtml" />
+    <Content Include="Views\Usuario\EspelhoPonto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

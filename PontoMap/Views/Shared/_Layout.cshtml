@@ -35,16 +35,6 @@
                         <ul class="gn-menu">
                             @switch (Session["Role"] != null ? Session["Role"].ToString() : "")
                             {
-                                case "user":
-                                    <li>
-                                        <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
-                                    </li>
-                                    <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
-                                    <li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>
-                                    <li>
-                                        <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
-                                    </li>
-                                    break;
                                 case "master":
                                     <li>
                                         <a href="@Url.Action("Index", "Empresa")#about" class="gn-icon gn-icon-about"> Empresas</a>
@@ -53,6 +43,15 @@
                                 case "admin":
                                     <li>
                                         <a href="@Url.Action("Index", "Usuario")#about" class="gn-icon gn-icon-about"> Usuários</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("EspelhoPonto", "Usuario")" class="gn-icon gn-icon-about"> Espelho de Ponto</a>
+                                    </li>
+                                    break;
+
+                                case "funcionario":
+                                    <li>
+                                        <a href="@Url.Action("EspelhoPonto", "Usuario")" class="gn-icon gn-icon-about"> Espelho de Ponto</a>
                                     </li>
                                     break;
                                 default:
@@ -82,7 +81,7 @@
                             }
 
 
-                           
+
 
 
 

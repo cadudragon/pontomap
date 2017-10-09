@@ -84,6 +84,23 @@ namespace PontoMap.DAOs
             return Query<Ponto>(strSql.ToString(), parametros);
         }
 
+        public List<Ponto> RelatorioPontoWs(Ponto ponto, DateTime dtInicio, DateTime dtFim)
+        {
+            strSql.Append("SELECT *");
+            strSql.Append("	FROM Ponto");
+            strSql.Append("  WHERE IdEmpresa =  @IdEmpresa AND");
+            strSql.Append(" DtRegistro BETWEEN @dtInicio AND @dtFim");
+
+            DynamicParameters parametros = new DynamicParameters();
+            parametros.Add("@IdEmpresa", ponto.IdEmpresa, DbType.Int32, ParameterDirection.Input);
+            parametros.Add("@dtInicio", dtInicio, DbType.Date, ParameterDirection.Input);
+            parametros.Add("@dtFim", dtFim.Date.AddHours(23).AddMinutes(59).AddSeconds(59), DbType.Date, ParameterDirection.Input);
+
+
+            ponto.Status = 1;
+            return Query<Ponto>(strSql.ToString(), parametros);
+        }
+
         public bool Delete(Ponto ponto)
         {
             throw new NotImplementedException();

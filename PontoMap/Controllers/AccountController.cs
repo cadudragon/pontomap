@@ -69,6 +69,12 @@ namespace PontoMap.Controllers
                 return RedirectToAction("Index", "Usuario");
             }
 
+            if (usuarioLogado.Perfis.Select(x => x.DsPerfil).Contains("funcionario"))
+            {
+                Session["Role"] = "funcionario";
+                return RedirectToAction("EspelhoPonto", "Usuario");
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

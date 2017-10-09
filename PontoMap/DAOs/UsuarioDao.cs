@@ -31,7 +31,8 @@ namespace PontoMap.DAOs
             strSql.Append("		,@DsCelular");
             strSql.Append("		,@CdPassword");
             strSql.Append("		,@DtNascimento");
-            strSql.Append("		,@NmUsuario)");
+            strSql.Append("		,@NmUsuario);");
+            strSql.Append(" SELECT CAST(SCOPE_IDENTITY() as int)");
 
 
             DynamicParameters parametros = new DynamicParameters();
@@ -43,7 +44,20 @@ namespace PontoMap.DAOs
             parametros.Add("@DtNascimento", usuario.DtNascimento, DbType.String, ParameterDirection.Input);
             parametros.Add("@NmUsuario", usuario.NmUsuario, DbType.String, ParameterDirection.Input);
 
+            parametros.Add("@IdUsuario", DbType.Int32, direction: ParameterDirection.Output);
+            int idUsuario =  QueryFirstOrDefault<int>(strSql.ToString(), parametros);
+
+            //Associando o usuário inserido ao perfil de funcionario ==============================
+            strSql =  new StringBuilder();
+            strSql.Append(" INSERT INTO RelacPerfilUsuario( DsPerfil, Idusuario) VALUES (");
+            strSql.Append(" @DsPerfil, @IdUsuario)");
+
+            parametros = new DynamicParameters();
+            parametros.Add("@DsPerfil", "funcionario", DbType.String, ParameterDirection.Input);
+            parametros.Add("@Idusuario", idUsuario, DbType.Int32, ParameterDirection.Input);
             Execute(strSql.ToString(), parametros);
+            //==================================================================================
+
             usuario.Status = 1;
             return true;
         }

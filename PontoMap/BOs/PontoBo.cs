@@ -63,6 +63,27 @@ namespace PontoMap.BOs
             return null;
         }
 
+        public List<Ponto> RelatorioPontoWs(Ponto ponto, DateTime dtInicio, DateTime dtFim)
+        {
+            List<string> atributosParaValidar = new List<string>();
+            atributosParaValidar.Add(nameof(ponto.IdEmpresa));
+            if (!Util.ValidaAtributos(ponto, atributosParaValidar))
+            {
+                return null;
+            }
+
+            try
+            {
+                return new PontoDao().RelatorioPontoWs(ponto, dtInicio, dtFim);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
+            
+        }
+
         public bool Update(Ponto obj)
         {
             throw new NotImplementedException();
