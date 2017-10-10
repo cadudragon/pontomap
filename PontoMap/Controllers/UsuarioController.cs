@@ -79,8 +79,6 @@ namespace PontoMap.Controllers
 
             ModelState.AddModelError(string.Empty, usuario.Mensagem);
             return View(usuario);
-
-
         }
 
         [CustomAuthorize(Roles = "admin")]

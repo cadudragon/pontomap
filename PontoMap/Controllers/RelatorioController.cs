@@ -12,8 +12,8 @@ namespace PontoMap.Controllers
 {
     public class RelatorioController : Controller
     {
-
-        [CustomAuthorize(Roles = "admin")]
+        //Refatorar para apenas admin 
+        [CustomAuthorize(Roles = "funcionario")]
         [HttpPost]
         public ActionResult GetRel(DateTime dtInicial, DateTime dtFinal, string tipoRel, string idUsuario)
         {
