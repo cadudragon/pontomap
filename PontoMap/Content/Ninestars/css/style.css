@@ -419,6 +419,19 @@ input.gn-search:focus {
 }
 
 
+.gn-icon-usuarios::before {
+    font-family: FontAwesome;
+    content: "\f0c0";
+}
+
+.gn-icon-relogio::before {
+    font-family: FontAwesome;
+    content: "\f017";
+}
+
+
+
+
 /* if an icon anchor has a span, hide the span */
 
 .gn-icon span {

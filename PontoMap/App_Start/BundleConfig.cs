@@ -35,7 +35,8 @@ namespace PontoMap
 
 
             bundles.Add(new StyleBundle("~/bundles/customCss").Include(
-                "~/Content/formulario.css"));
+                "~/Content/formulario.css",
+                "~/Content/mobileStores.css"));
             
             //Css e js do tema ===================
             bundles.Add(new StyleBundle("~/bundles/nineStarsCss").Include(

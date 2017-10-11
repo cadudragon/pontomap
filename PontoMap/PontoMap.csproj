@@ -219,7 +219,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Download\img-bg.jpg" />
     <Content Include="Content\formulario.css" />
+    <Content Include="Content\Img\google_play_04.png" />
+    <Content Include="Content\mobileStores.css" />
     <Content Include="Content\Ninestars\color\default.css" />
     <Content Include="Content\Ninestars\css\animate.css" />
     <Content Include="Content\Ninestars\css\bootstrap.css" />
@@ -343,6 +346,8 @@
     <Content Include="Content\Ninestars\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\Ninestars\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\Ninestars\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Img\google_play_04.webp" />
+    <Content Include="Content\Download\PontoMapApp.apk" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\pontomap - FTP.pubxml" />
@@ -408,7 +413,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63534</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
