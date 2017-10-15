@@ -65,9 +65,7 @@ namespace PontoMap.DAOs
 
         public List<Ponto> RelatorioPonto(Ponto ponto, DateTime dtInicio, DateTime dtFim)
         {
-            strSql.Append("SELECT DtRegistro");
-            strSql.Append("		,CdLat");
-            strSql.Append("		,CdLng");
+            strSql.Append("SELECT *");
             strSql.Append("	FROM Ponto");
             strSql.Append("  WHERE Idusuario =  @Idusuario AND");
             strSql.Append("   IdEmpresa =  @IdEmpresa AND");
