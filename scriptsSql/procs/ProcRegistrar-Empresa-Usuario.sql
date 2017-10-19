@@ -31,6 +31,11 @@ AS BEGIN BEGIN TRY BEGIN TRANSACTION
 	INSERT INTO RelacPerfilUsuario ( DsPerfil, Idusuario )
 	VALUES( 'admin',
 	        @IdUsuarioIdentity )
+	        
+		INSERT INTO RelacPerfilUsuario ( DsPerfil, Idusuario )
+	VALUES( 'funcionario',
+	        @IdUsuarioIdentity )
+	        
 	COMMIT TRAN -- Transaction Success!
 END TRY BEGIN CATCH IF @@TRANCOUNT > 0
 ROLLBACK TRAN -- RollBack in case of Error

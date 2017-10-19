@@ -181,6 +181,11 @@
             });
     }
 
+
+    $('.data').on('blur', function () {
+        validaDATA(this);
+    });
+
     $.validator.addMethod("customvalidationcpf",
         function (value, element, param) {
             return validaCPF(value); //chama um método validaCPF implementado em javascript

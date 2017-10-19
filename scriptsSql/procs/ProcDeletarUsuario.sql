@@ -1,12 +1,12 @@
 ALTER PROCEDURE [dbo].[SP_DeletarUsuario] @IdUsuario INT,
-                                       	   @IdEmpresa INT
+                                           @IdEmpresa INT
 AS BEGIN BEGIN TRY BEGIN TRANSACTION 
-	
-	DELETE FROM RelacPerfilUsuario WHERE Idusuario = @IdUsuario;
-	DELETE FROM Ponto WHERE Idusuario = @IdUsuario;
-	DELETE FROM Usuario WHERE Idusuario = @IdUsuario AND IdEmpresa = @IdEmpresa;
+  
+  DELETE FROM RelacPerfilUsuario WHERE Idusuario = @IdUsuario;
+  DELETE FROM Ponto WHERE Idusuario = @IdUsuario;
+  DELETE FROM Usuario WHERE Idusuario = @IdUsuario AND IdEmpresa = @IdEmpresa;
 
-	COMMIT TRAN -- Transaction Success!
+  COMMIT TRAN -- Transaction Success!
 END TRY BEGIN CATCH IF @@TRANCOUNT > 0
 ROLLBACK TRAN -- RollBack in case of Error
 

@@ -42,27 +42,64 @@ namespace PontoMap.Controllers
         }
 
 
+        //Refatorar para apenas admin 
+        [CustomAuthorize(Roles = "funcionario")]
+        [HttpGet]
+        public ActionResult GetRelUser(DateTime dtInicial, DateTime dtFinal, string tipoRel)
+        {
+            Ponto ponto = new Ponto
+            {
+                IdEmpresa = Util.ValidaInteiro(Session["IdEmpresa"].ToString(), 0),
+                IdUsuario = Util.ValidaInteiro(Session["IdUsuario"].ToString(), 0)
+            };
+            List<Ponto> pontos = new PontoBo().RelatorioPonto(ponto, dtInicial, dtFinal);
+
+            if (ponto.Status != 1)
+                return Content(JsonConvert.SerializeObject(ponto));
+
+            switch (tipoRel)
+            {
+                case "grid":
+                    return View("Grid", pontos);
+                case "pdf":
+                    return Pdf(pontos);
+                default:
+                    return Content(JsonConvert.SerializeObject(ponto));
+            }
+        }
+
+
 
         public FileStreamResult Pdf(List<Ponto> pontos)
         {
+
             MemoryStream workStream = new MemoryStream();
             Document document = new Document();
             PdfWriter.GetInstance(document, workStream).CloseStream = false;
 
             document.Open();
+
+            //imagem
+
+            var logoPontoMap = Server.MapPath("~/Content/Img/") + "pontomap.png";
+            var imgInstancia = Image.GetInstance(logoPontoMap);
+            imgInstancia.Alignment = iTextSharp.text.Image.UNDERLYING;
+            imgInstancia.ScaleAbsolute(100.0F, 70.0F);
+            //imgInstancia.SetAbsolutePosition(20, 700);
+            document.Add(imgInstancia);
+            document.Add(new Paragraph(" ", FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK)));
+
             Usuario user = new UsuarioBo().Get(new Usuario { IdUsuario = pontos[0].IdUsuario, IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
 
             PdfPCell c = new PdfPCell();
             PdfPTable t = new PdfPTable(2);
             t.TotalWidth = 144f;
+            t.SpacingBefore = 100f;
 
             c = new PdfPCell();
             c.AddElement(new Chunk("FUNCIONÁRIO: " + user.NmUsuario));
             c.Colspan = 2;
             t.AddCell(c);
-
-            document.Add(new Paragraph("Funcionário: " + user.NmUsuario));
-
            
             foreach (Ponto p in pontos)
             {
@@ -75,6 +112,7 @@ namespace PontoMap.Controllers
                 t.AddCell(c);
             }
 
+         
             document.Add(t);
             document.Close();
 

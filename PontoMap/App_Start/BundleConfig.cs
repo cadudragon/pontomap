@@ -26,6 +26,7 @@ namespace PontoMap
             bundles.Add(new ScriptBundle("~/bundles/customScripts").Include(
             "~/Scripts/CustomValidations.js",
             "~/Scripts/bootstrap-notify.min.js",
+            "~/Scripts/moment.js",
             "~/Scripts/vanilla-masker.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
