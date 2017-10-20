@@ -47,7 +47,9 @@ namespace PontoMap
                 "~/Content/Ninestars/css/nivo-lightbox-theme/default/default.css",
                 "~/Content/Ninestars/css/animate.css",
                 "~/Content/Ninestars/css/style.css",
-                "~/Content/Ninestars/color/default.css"
+                "~/Content/Ninestars/color/default.css",
+                "~/Content/jquery-ui/jquery-ui.min.css",
+                "~/Content/jquery-ui/jquery-ui.theme.min.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/nineStarsJs").Include(
@@ -57,7 +59,8 @@ namespace PontoMap
                 "~/Content/Ninestars/js/jquery.scrollTo.js",
                 "~/Content/Ninestars/js/nivo-lightbox.min.js",
                 "~/Content/Ninestars/js/stellar.js",
-                "~/Content/Ninestars/js/custom.js"
+                "~/Content/Ninestars/js/custom.js",
+                "~/Content/jquery-ui/jquery-ui.min.js"
                 ));
 
 

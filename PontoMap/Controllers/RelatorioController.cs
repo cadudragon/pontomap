@@ -76,6 +76,8 @@ namespace PontoMap.Controllers
             MemoryStream workStream = new MemoryStream();
             Document document = new Document();
             PdfWriter.GetInstance(document, workStream).CloseStream = false;
+            PdfPCell c = new PdfPCell();
+            PdfPTable t = new PdfPTable(2);
 
             document.Open();
 
@@ -85,22 +87,33 @@ namespace PontoMap.Controllers
             var imgInstancia = Image.GetInstance(logoPontoMap);
             imgInstancia.Alignment = iTextSharp.text.Image.UNDERLYING;
             imgInstancia.ScaleAbsolute(100.0F, 70.0F);
-            //imgInstancia.SetAbsolutePosition(20, 700);
+
             document.Add(imgInstancia);
             document.Add(new Paragraph(" ", FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK)));
 
-            Usuario user = new UsuarioBo().Get(new Usuario { IdUsuario = pontos[0].IdUsuario, IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
+            if (pontos.Count == 0)
+            {
 
-            PdfPCell c = new PdfPCell();
-            PdfPTable t = new PdfPTable(2);
-            t.TotalWidth = 144f;
-            t.SpacingBefore = 100f;
+                Paragraph msgNaoHaRegistros = new Paragraph(" Não há registros para o intervalo de data selecionado.",
+                    FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD, BaseColor.BLACK));
+                msgNaoHaRegistros.SpacingBefore = 100f;
+                document.Add(msgNaoHaRegistros);
+            }
+            else
+            {
+                Usuario user = new UsuarioBo().Get(new Usuario { IdUsuario = pontos[0].IdUsuario, IdEmpresa = int.Parse(Session["IdEmpresa"].ToString()) });
 
-            c = new PdfPCell();
-            c.AddElement(new Chunk("FUNCIONÁRIO: " + user.NmUsuario));
-            c.Colspan = 2;
-            t.AddCell(c);
-           
+                t.TotalWidth = 144f;
+                t.SpacingBefore = 100f;
+
+                c = new PdfPCell();
+                c.AddElement(new Chunk("FUNCIONÁRIO: " + user.NmUsuario));
+                c.Colspan = 2;
+                t.AddCell(c);
+            }
+
+
+
             foreach (Ponto p in pontos)
             {
                 c = new PdfPCell();
@@ -112,7 +125,7 @@ namespace PontoMap.Controllers
                 t.AddCell(c);
             }
 
-         
+
             document.Add(t);
             document.Close();
 
