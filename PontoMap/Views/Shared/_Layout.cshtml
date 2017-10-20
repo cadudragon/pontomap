@@ -29,20 +29,20 @@
     <div class="container">
         <ul id="gn-menu" class="gn-menu-main">
             <li class="gn-trigger">
-                <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
-                <nav class="gn-menu-wrapper">
+                <a id="gn-icon-menu" class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                <nav id="gn-menu-wrapper" class="gn-menu-wrapper">
                     <div class="gn-scroller">
                         <ul class="gn-menu">
                             @switch (Session["Role"] != null ? Session["Role"].ToString() : "")
                             {
                                 case "master":
                                     <li>
-                                        <a href="@Url.Action("Index", "Empresa")#about" class="gn-icon gn-icon-about"> Empresas</a>
+                                        <a href="@Url.Action("Index", "Empresa")" class="gn-icon gn-icon-about"> Empresas</a>
                                     </li>
                                     break;
                                 case "admin":
                                     <li>
-                                        <a href="@Url.Action("Index", "Usuario")#about" class="gn-icon gn-icon-usuarios"> Usuários</a>
+                                        <a href="@Url.Action("Index", "Usuario")" class="gn-icon gn-icon-usuarios"> Usuários</a>
                                     </li>
                                     <li>
                                         <a href="@Url.Action("EspelhoPonto", "Usuario")" class="gn-icon gn-icon-relogio"> Espelho de Ponto</a>
@@ -58,23 +58,23 @@
                                     if (ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString() == "Home")
                                     {
                                         <li>
-                                            <a href="#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                            <a onclick="fecharMenu();" href="#about" class="gn-icon gn-icon-about"> Sobre</a>
                                         </li>
-                                        <li><a href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                        <li><a  onclick="fecharMenu();" href="#service" class="gn-icon gn-icon-cog">Serviços</a></li>
                                         @*<li><a href="#works" class="gn-icon gn-icon-help">Clientes</a></li>*@
                                         <li>
-                                            <a href="#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                            <a  onclick="fecharMenu();" href="#contact" class="gn-icon gn-icon-archive">Contato</a>
                                         </li>
                                     }
                                     else
                                     {
                                         <li>
-                                            <a href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
+                                            <a  onclick="fecharMenu();" href="@Url.Action("Index", "Home")#about" class="gn-icon gn-icon-about"> Sobre</a>
                                         </li>
-                                        <li><a href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
+                                        <li><a  onclick="fecharMenu();" href="@Url.Action("Index", "Home")#service" class="gn-icon gn-icon-cog">Serviços</a></li>
                                         @*<li><a href="@Url.Action("Index", "Home")#works" class="gn-icon gn-icon-help">Clientes</a></li>*@
                                         <li>
-                                            <a href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
+                                            <a  onclick="fecharMenu();" href="@Url.Action("Index", "Home")#contact" class="gn-icon gn-icon-archive">Contato</a>
                                         </li>
                                     }
                                     break;
@@ -198,6 +198,11 @@
         nextText: 'Proximo',
         prevText: 'Anterior'
     });
+
+    function fecharMenu() {
+        $("#gn-icon-menu").toggleClass('gn-selected');
+        $("#gn-menu-wrapper").toggleClass('gn-open-all');
+    }
 
     $.validator.addMethod("customvalidationcpf",
         function (value, element, param) {
